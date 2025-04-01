@@ -1,24 +1,22 @@
 package com.br.tamarin.usuario.service;
 
-import com.br.tamarin.root.crud.Crud;
+import com.br.tamarin.root.repository.CRUDRepository;
+import com.br.tamarin.root.service.impl.ServiceImpl;
 import com.br.tamarin.usuario.entity.Usuario;
 import com.br.tamarin.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.UUID;
 
 @Service
-public class UsuarioService extends Crud<Usuario> {
+public class UsuarioService extends ServiceImpl<Usuario> {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioRepository repository;
 
-    public void cadastrar(Usuario usuario) {
-        onExecuteService(() -> usuarioRepository.save(usuario));
-    }
-
-    public List<Usuario> listar() {
-        return usuarioRepository.findAll();
+    @Override
+    protected CRUDRepository<Usuario, UUID> getRepository() {
+        return repository;
     }
 }

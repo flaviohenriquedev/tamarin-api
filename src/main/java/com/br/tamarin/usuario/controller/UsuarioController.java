@@ -1,27 +1,26 @@
 package com.br.tamarin.usuario.controller;
 
+import com.br.tamarin.root.controller.CRUDController;
+import com.br.tamarin.root.service.Service;
 import com.br.tamarin.usuario.entity.Usuario;
 import com.br.tamarin.usuario.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/usuario")
-public class UsuarioController {
+public class UsuarioController extends CRUDController<Usuario, UUID> {
 
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping
-    public List<Usuario> listar() {
-        return usuarioService.listar();
-    }
-
-    @PostMapping
-    public void cadastrar(@RequestBody Usuario usuario) {
-        usuarioService.cadastrar(usuario);
+    @Override
+    protected Service<Usuario> getService() {
+        return usuarioService;
     }
 }

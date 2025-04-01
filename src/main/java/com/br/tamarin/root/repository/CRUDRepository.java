@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
 
-public interface CrudRepository<E extends EntidadePadrao, ID extends Serializable> extends JpaRepository<E, ID> {
+public interface CRUDRepository<E extends EntidadePadrao, ID extends Serializable> extends JpaRepository<E, ID> {
 }
