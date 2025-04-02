@@ -16,5 +16,6 @@ import lombok.Setter;
 @Table(name = "usuario")
 public class Usuario extends EntidadePadrao {
     String nome;
-    Integer idade;
+    String email;
+    String senha;
 }

@@ -13,7 +13,7 @@ import java.util.UUID;
 public abstract class EntidadePadrao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
     @Column(name = "data_criacao", updatable = false)
