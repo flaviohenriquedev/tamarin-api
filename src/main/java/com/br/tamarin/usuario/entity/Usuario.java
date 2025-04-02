@@ -17,5 +17,7 @@ import lombok.Setter;
 public class Usuario extends EntidadePadrao {
     String nome;
     String email;
+    String cpf;
     String senha;
+    String token;
 }

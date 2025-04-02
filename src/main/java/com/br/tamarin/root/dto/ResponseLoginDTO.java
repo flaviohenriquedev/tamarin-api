@@ -1,3 +1,5 @@
 package com.br.tamarin.root.dto;
 
-public record ResponseLoginDTO(String token, String name) {}
+import com.br.tamarin.usuario.entity.Usuario;
+
+public record ResponseLoginDTO(Usuario usuario) {}

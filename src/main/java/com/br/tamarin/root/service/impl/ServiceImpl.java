@@ -15,8 +15,8 @@ public abstract class ServiceImpl<E extends EntidadePadrao> implements Service<E
     }
 
     @Override
-    public void salvar(E entidade) {
-        getRepository().save(entidade);
+    public E salvar(E entidade) {
+        return getRepository().save(entidade);
     }
 
     protected abstract CRUDRepository<E, UUID> getRepository();
