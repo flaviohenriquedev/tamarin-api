@@ -18,8 +18,8 @@ public abstract class CRUDController<E extends EntidadePadrao, ID extends Serial
     }
 
     @PostMapping
-    public ResponseEntity<E> salvar(@RequestBody E entidade) {
-        return ResponseEntity.ok(getService().salvar(entidade));
+    public void salvar(@RequestBody E entidade) {
+        getService().salvar(entidade);
     }
 
     protected abstract Service<E> getService();

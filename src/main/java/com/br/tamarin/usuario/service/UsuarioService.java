@@ -1,10 +1,10 @@
 package com.br.tamarin.usuario.service;
 
-import com.br.tamarin.root.auth.TokenService;
 import com.br.tamarin.root.repository.CRUDRepository;
 import com.br.tamarin.root.service.impl.ServiceImpl;
 import com.br.tamarin.usuario.entity.Usuario;
 import com.br.tamarin.usuario.repository.UsuarioRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,9 +22,6 @@ public class UsuarioService extends ServiceImpl<Usuario> {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private TokenService tokenService;
-
-    @Autowired
     private UsuarioRepository repository;
 
     @Override
@@ -33,23 +30,16 @@ public class UsuarioService extends ServiceImpl<Usuario> {
     }
 
     @Override
-    public Usuario salvar(Usuario usuario) {
+    public void salvar(Usuario usuario) {
 
         Optional<Usuario> usuarioRetorno = this.repository.findByEmail(usuario.getEmail());
 
         if (usuarioRetorno.isEmpty()) {
-            String novaSenha = usuario.getCpf().substring(0, 4);
+            String novaSenha = usuario.getCpf().substring(0, 5);
             Usuario novoUsuario = new Usuario();
+            BeanUtils.copyProperties(usuario, novoUsuario);
             novoUsuario.setSenha(passwordEncoder.encode(novaSenha));
-            novoUsuario.setNome(usuario.getNome());
-            novoUsuario.setEmail(usuario.getEmail());
             this.usuarioRepository.save(novoUsuario);
-
-            String token = this.tokenService.gerarToken(novoUsuario);
-            novoUsuario.setToken(token);
-            return novoUsuario;
         }
-
-        return new Usuario();
     }
 }
