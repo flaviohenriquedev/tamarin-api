@@ -24,6 +24,9 @@ public class Colaborador extends EntidadeCliente {
     @Column(nullable = false, unique = true, length = 14)
     String cpf;
 
+    @Column(name = "nome_social")
+    String nomeSocial;
+
     @Column(name = "data_nascimento")
     LocalDate dataNascimento;
 

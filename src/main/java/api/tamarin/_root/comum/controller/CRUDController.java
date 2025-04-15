@@ -1,5 +1,6 @@
 package api.tamarin._root.comum.controller;
 
+import api.tamarin._root.comum.model.EntidadeAuditavel;
 import api.tamarin._root.comum.model.EntidadePadrao;
 import api.tamarin._root.comum.service.Service;
 import org.springframework.http.ResponseEntity;

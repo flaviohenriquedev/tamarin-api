@@ -1,8 +1,8 @@
 package api.tamarin._root.comum.service.impl;
 
 import api.tamarin._root.comum.model.EntidadePadrao;
-import api.tamarin._root.comum.repository.CRUDRepository;
 import api.tamarin._root.comum.service.Service;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -21,5 +21,5 @@ public abstract class ServiceImpl<E extends EntidadePadrao> implements Service<E
         return ResponseEntity.ok().build();
     }
 
-    protected abstract CRUDRepository<E, UUID> getRepository();
+    protected abstract JpaRepository<E, UUID> getRepository();
 }

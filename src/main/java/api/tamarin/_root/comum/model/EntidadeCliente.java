@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class EntidadeCliente extends EntidadePadrao{
+public abstract class EntidadeCliente extends EntidadeAuditavel {
     @JoinColumn
     @OneToOne
     Cliente cliente;

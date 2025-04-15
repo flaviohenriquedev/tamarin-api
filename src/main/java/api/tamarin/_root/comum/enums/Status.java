@@ -7,12 +7,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Status {
-    INATIVO("geral.inativo", false),
-    ATIVO("geral.ativo", true);
+    INATIVO("INATIVO"),
+    ATIVO("ATIVO"),
+    DELETADO("DELETADO");
 
     @NonNull
     private String messageKey;
-
-    @NonNull
-    private boolean ativo;
 }

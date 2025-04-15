@@ -1,8 +1,8 @@
-package api.tamarin.usuario.service;
+package api.tamarin.dominio.pais.service;
 
 import api.tamarin._root.comum.service.impl.ServiceImpl;
-import api.tamarin.usuario.model.Usuario;
-import api.tamarin.usuario.repository.UsuarioRepository;
+import api.tamarin.dominio.pais.model.Pais;
+import api.tamarin.dominio.pais.repository.PaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class UsuarioService extends ServiceImpl<Usuario> {
+public class PaisService extends ServiceImpl<Pais> {
 
     @Autowired
-    private UsuarioRepository repository;
+    private PaisRepository repository;
 
     @Override
-    protected JpaRepository<Usuario, UUID> getRepository() {
+    protected JpaRepository<Pais, UUID> getRepository() {
         return repository;
     }
 }
