@@ -1,6 +1,6 @@
 package api.tamarin.dominio.estado.service;
 
-import api.tamarin._root.comum.service.impl.ServiceImpl;
+import api.tamarin._root.comum.service.impl.DefaultServiceImpl;
 import api.tamarin.dominio.estado.model.Estado;
 import api.tamarin.dominio.estado.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class EstadoService extends ServiceImpl<Estado> {
+public class EstadoService extends DefaultServiceImpl<Estado> {
 
     @Autowired
     private EstadoRepository repository;

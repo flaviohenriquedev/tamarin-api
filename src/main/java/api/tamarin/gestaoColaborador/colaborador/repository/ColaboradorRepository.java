@@ -1,6 +1,6 @@
-package api.tamarin.colaborador.repository;
+package api.tamarin.gestaoColaborador.colaborador.repository;
 
-import api.tamarin.colaborador.model.Colaborador;
+import api.tamarin.gestaoColaborador.colaborador.model.Colaborador;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

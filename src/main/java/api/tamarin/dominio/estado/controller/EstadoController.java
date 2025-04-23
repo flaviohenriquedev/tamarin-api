@@ -1,7 +1,7 @@
 package api.tamarin.dominio.estado.controller;
 
-import api.tamarin._root.comum.controller.CRUDController;
-import api.tamarin._root.comum.service.Service;
+import api.tamarin._root.comum.controller.DefaultController;
+import api.tamarin._root.comum.service.DefaultService;
 import api.tamarin.dominio.estado.model.Estado;
 import api.tamarin.dominio.estado.service.EstadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/estado")
-public class EstadoController extends CRUDController<Estado> {
+public class EstadoController extends DefaultController<Estado> {
 
     @Autowired
     private EstadoService service;
 
     @Override
-    protected Service<Estado> getService() {
+    protected DefaultService<Estado> getService() {
         return service;
     }
 }

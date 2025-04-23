@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface Service<E extends EntidadePadrao> {
+public interface DefaultService<E extends EntidadePadrao> {
     List<E> findAll();
 
     ResponseEntity salvar(E entidade);

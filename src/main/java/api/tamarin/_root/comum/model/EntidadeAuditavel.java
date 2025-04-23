@@ -1,5 +1,6 @@
 package api.tamarin._root.comum.model;
 
+import api.tamarin._root.comum.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +33,10 @@ public abstract class EntidadeAuditavel extends EntidadePadrao {
 
         if (usuarioCriacao == null) {
             usuarioCriacao = "FLAVIO HENRIQUE MOREIRA ROSA";
+        }
+
+        if (status == null) {
+            status = Status.ATIVO;
         }
     }
 }
