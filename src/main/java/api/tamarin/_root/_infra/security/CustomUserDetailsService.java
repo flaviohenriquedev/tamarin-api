@@ -1,7 +1,7 @@
 package api.tamarin._root._infra.security;
 
-import api.tamarin.usuario.model.Usuario;
-import api.tamarin.usuario.repository.UsuarioRepository;
+import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.model.Usuario;
+import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

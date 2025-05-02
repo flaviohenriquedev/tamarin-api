@@ -1,6 +1,6 @@
 package api.tamarin._root.comum.model;
 
-import api.tamarin.cliente.model.Cliente;
+import api.tamarin.recursosHumanos.gestaoCliente.cliente.model.Cliente;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToOne;

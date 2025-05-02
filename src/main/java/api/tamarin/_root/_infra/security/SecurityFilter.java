@@ -1,7 +1,7 @@
 package api.tamarin._root._infra.security;
 
-import api.tamarin.usuario.model.Usuario;
-import api.tamarin.usuario.repository.UsuarioRepository;
+import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.model.Usuario;
+import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.repository.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
