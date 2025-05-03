@@ -1,6 +1,7 @@
 package api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.model;
 
-import api.tamarin._root.comum.model.EntidadeCliente;
+import api.tamarin._root.comum.model.EntidadeAuditavel;
+import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.enums.RoleUsuarioENUM;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.enums.StatusUsuarioENUM;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
@@ -18,7 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "usuario")
-public class Usuario extends EntidadeCliente {
+public class Usuario extends EntidadeAuditavel {
     String nome;
     String email;
     String cpf;
@@ -29,4 +30,5 @@ public class Usuario extends EntidadeCliente {
     String perfil;
     @Enumerated(EnumType.STRING)
     StatusUsuarioENUM statusUsuario;
+    RoleUsuarioENUM role;
 }
