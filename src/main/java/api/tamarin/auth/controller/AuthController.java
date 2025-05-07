@@ -3,6 +3,7 @@ package api.tamarin.auth.controller;
 import api.tamarin._root._infra.security.TokenService;
 import api.tamarin.auth.dto.LoginRequestDTO;
 import api.tamarin.auth.dto.RegisterAuthDTO;
+import api.tamarin.auth.dto.ResponseAuth;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.model.Usuario;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +24,16 @@ public class AuthController {
     private final TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<Usuario> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+    public ResponseEntity<ResponseAuth> login(@RequestBody LoginRequestDTO loginRequestDTO) {
         Usuario usuario = usuarioRepository.findByEmail(loginRequestDTO.email()).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
         if (passwordEncoder.matches(loginRequestDTO.senha(), usuario.getSenha())) {
             String token = tokenService.generateToken(usuario);
-            usuario.setToken(token);
-            return ResponseEntity.ok(usuario);
+            return ResponseEntity.ok(new ResponseAuth(
+                    usuario.getId(),
+                    usuario.getNome(),
+                    usuario.getEmail(),
+                    token
+            ));
         }
         return ResponseEntity.badRequest().build();
     }
