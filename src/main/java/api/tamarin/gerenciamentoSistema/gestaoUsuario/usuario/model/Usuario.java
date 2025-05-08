@@ -31,4 +31,5 @@ public class Usuario extends EntidadeAuditavel {
     @Enumerated(EnumType.STRING)
     StatusUsuarioENUM statusUsuario;
     RoleUsuarioENUM role;
+    Boolean usuarioMaster;
 }

@@ -15,6 +15,5 @@ import lombok.Setter;
 @Entity
 @Table(name = "departamento")
 public class Departamento extends EntidadeCliente {
-
     String descricao;
 }

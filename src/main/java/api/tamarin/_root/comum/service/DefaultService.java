@@ -4,9 +4,10 @@ import api.tamarin._root.comum.model.EntidadePadrao;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface DefaultService<E extends EntidadePadrao> {
     List<E> findAll();
-
-    ResponseEntity salvar(E entidade);
+    E findById(UUID id);
+    ResponseEntity<?> salvar(E entidade);
 }

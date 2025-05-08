@@ -16,6 +16,11 @@ public abstract class DefaultServiceImpl<E extends EntidadePadrao> implements De
     }
 
     @Override
+    public E findById(UUID id) {
+        return getRepository().findById(id).orElse(null);
+    }
+
+    @Override
     public ResponseEntity salvar(E entidade) {
         getRepository().save(entidade);
         return ResponseEntity.ok().build();

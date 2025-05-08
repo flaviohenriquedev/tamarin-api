@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "usuario_cliente")
 public class UsuarioCliente extends EntidadeCliente {
 
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn
     @ManyToOne
     Usuario usuario;
 }
