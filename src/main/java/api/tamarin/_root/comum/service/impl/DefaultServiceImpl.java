@@ -21,9 +21,8 @@ public abstract class DefaultServiceImpl<E extends EntidadePadrao> implements De
     }
 
     @Override
-    public ResponseEntity salvar(E entidade) {
-        getRepository().save(entidade);
-        return ResponseEntity.ok().build();
+    public E salvar(E entidade) {
+        return getRepository().save(entidade);
     }
 
     protected abstract JpaRepository<E, UUID> getRepository();

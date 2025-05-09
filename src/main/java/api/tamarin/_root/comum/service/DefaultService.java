@@ -9,5 +9,5 @@ import java.util.UUID;
 public interface DefaultService<E extends EntidadePadrao> {
     List<E> findAll();
     E findById(UUID id);
-    ResponseEntity<?> salvar(E entidade);
+    E salvar(E entidade);
 }

@@ -2,14 +2,14 @@ package api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioCliente.model;
 
 import api.tamarin._root.comum.model.EntidadeCliente;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.model.Usuario;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioClienteSistema.model.UsuarioClienteSistema;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,4 +22,7 @@ public class UsuarioCliente extends EntidadeCliente {
     @JoinColumn
     @ManyToOne
     Usuario usuario;
+
+    @OneToMany(mappedBy = "usuarioCliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<UsuarioClienteSistema> sistemas;
 }

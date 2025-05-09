@@ -1,14 +1,15 @@
 package api.tamarin.recursosHumanos.gestaoCliente.cliente.model;
 
 import api.tamarin._root.comum.model.EntidadeAuditavel;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import api.tamarin.recursosHumanos.gestaoCliente.clienteSistema.model.ClienteSistema;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,8 +29,9 @@ public class Cliente extends EntidadeAuditavel {
     String cnpj;
 
     @Column(name = "data_abertura")
-    Date dataAbertura;
+    LocalDate dataAbertura;
 
-    List<String> sistemas;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<ClienteSistema> sistemas = new ArrayList<>();
 
 }

@@ -45,7 +45,7 @@ public abstract class DefaultController<E extends EntidadePadrao> {
             }
         }
 
-        return getService().salvar(entidade);
+        return ResponseEntity.ok(getService().salvar(entidade));
     }
 
     protected abstract DefaultService<E> getService();

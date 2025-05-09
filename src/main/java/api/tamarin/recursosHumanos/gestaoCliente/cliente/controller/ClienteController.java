@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 public class ClienteController extends DefaultController<Cliente> {
 
     @Autowired
@@ -19,4 +19,21 @@ public class ClienteController extends DefaultController<Cliente> {
     protected DefaultService<Cliente> getService() {
         return clienteService;
     }
+
+//    @PostMapping
+//    public ResponseEntity<Cliente> criar(@RequestBody ClienteDTO dto) {
+//        return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.salvar(dto));
+//    }
+//
+//    @GetMapping
+//    public List<Cliente> listar() {
+//        return clienteService.listar();
+//    }
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Cliente> buscar(@PathVariable UUID id) {
+//        return clienteService.buscarPorId(id)
+//                .map(ResponseEntity::ok)
+//                .orElse(ResponseEntity.notFound().build());
+//    }
 }

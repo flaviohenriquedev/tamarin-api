@@ -1,6 +1,6 @@
 package api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfil.model;
 
-import api.tamarin._root.comum.model.EntidadePadrao;
+import api.tamarin._root.comum.model.EntidadeAuditavel;
 import api.tamarin.recursosHumanos.gestaoCliente.clienteSistema.model.ClienteSistema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -19,12 +19,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "perfil")
-public class Perfil extends EntidadePadrao {
-
-    String descricao;
-    List<String> rotas;
+public class Perfil extends EntidadeAuditavel {
 
     @JoinColumn(name = "id_cliente_sistema")
     @ManyToOne
     ClienteSistema clienteSistema;
+
+    String descricao;
+    List<String> rotas;
 }

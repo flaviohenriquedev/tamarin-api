@@ -2,10 +2,8 @@ package api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioClienteSistema.mod
 
 import api.tamarin._root.comum.model.EntidadePadrao;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioCliente.model.UsuarioCliente;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioClienteSistemaPerfil.model.UsuarioClienteSistemaPerfil;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,5 +21,9 @@ public class UsuarioClienteSistema extends EntidadePadrao {
     @JoinColumn
     @ManyToOne
     UsuarioCliente usuarioCliente;
-    List<String> sistemas;
+    String sistema;
+    String role;
+
+    @OneToMany(mappedBy = "usuarioClienteSistema", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<UsuarioClienteSistemaPerfil> perfis;
 }
