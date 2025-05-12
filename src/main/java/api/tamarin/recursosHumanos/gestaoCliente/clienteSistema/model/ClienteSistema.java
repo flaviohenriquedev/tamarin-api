@@ -20,7 +20,7 @@ public class ClienteSistema extends EntidadePadrao {
 
     @JsonSerialize(using = IDSerializer.class)
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
     @Column(name = "key_sistema")

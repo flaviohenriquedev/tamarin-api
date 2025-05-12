@@ -12,7 +12,8 @@ import lombok.Setter;
 @Setter
 @MappedSuperclass
 public abstract class EntidadeCliente extends EntidadeAuditavel {
-    @JoinColumn
+
+    @JoinColumn(name = "id_cliente")
     @ManyToOne
     Cliente cliente;
 }

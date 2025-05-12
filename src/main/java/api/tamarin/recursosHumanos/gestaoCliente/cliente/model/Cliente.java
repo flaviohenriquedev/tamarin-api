@@ -10,7 +10,6 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -20,18 +19,19 @@ import java.util.List;
 @Entity
 @Table(name = "cliente")
 public class Cliente extends EntidadeAuditavel {
+
     @Column(name = "nome_fantasia")
-    String nomeFantasia;
+    private String nomeFantasia;
 
     @Column(name = "razao_social")
-    String razaoSocial;
+    private String razaoSocial;
 
-    String cnpj;
+    private String cnpj;
 
     @Column(name = "data_abertura")
-    LocalDate dataAbertura;
+    private LocalDate dataAbertura;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<ClienteSistema> sistemas = new ArrayList<>();
+    private List<ClienteSistema> sistemas = new ArrayList<>();
 
 }

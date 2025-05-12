@@ -1,11 +1,8 @@
 package api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfil.model;
 
-import api.tamarin._root.comum.model.EntidadeAuditavel;
-import api.tamarin.recursosHumanos.gestaoCliente.clienteSistema.model.ClienteSistema;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import api.tamarin._root.comum.model.EntidadeCliente;
+import api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistema.model.PerfilSistema;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,12 +16,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "perfil")
-public class Perfil extends EntidadeAuditavel {
+public class Perfil extends EntidadeCliente {
 
-    @JoinColumn(name = "id_cliente_sistema")
-    @ManyToOne
-    ClienteSistema clienteSistema;
+    @Column(nullable = false)
+    private String descricao;
 
-    String descricao;
-    List<String> rotas;
+    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<PerfilSistema> sistemas;
 }
