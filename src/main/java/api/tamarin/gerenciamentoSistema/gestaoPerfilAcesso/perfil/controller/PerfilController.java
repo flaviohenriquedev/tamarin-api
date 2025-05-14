@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/produtos")
+@RequestMapping("/perfil")
 public class PerfilController extends DefaultController<PerfilDTO> {
 
     @Autowired

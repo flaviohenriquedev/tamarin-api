@@ -4,7 +4,7 @@ import api.tamarin._root.comum.model.EntidadePadrao;
 import api.tamarin._root.comum.serializer.impl.IDSerializer;
 import api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfil.model.Perfil;
 import api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistemaModulo.model.PerfilSistemaModulo;
-import api.tamarin.recursosHumanos.gestaoCliente.clienteSistema.model.ClienteSistema;
+import api.tamarin.gerenciamentoSistema.gestaoCliente.clienteSistema.model.ClienteSistema;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

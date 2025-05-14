@@ -1,6 +1,6 @@
 package api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfil.dto;
 
-import api.tamarin._root.comum.dto.EntidadeClienteDTO;
+import api.tamarin.gerenciamentoSistema.gestaoCliente.cliente.dto.ClienteDTO;
 import api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistema.dto.PerfilSistemaDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PerfilDTO extends EntidadeClienteDTO {
+public class PerfilRegisterDTO {
+    private ClienteDTO cliente;
     private String descricao;
     private List<PerfilSistemaDTO> sistemas;
 }

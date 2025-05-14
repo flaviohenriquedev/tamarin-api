@@ -19,7 +19,7 @@ import java.util.List;
 public class Perfil extends EntidadeCliente {
 
     @Column(nullable = false)
-    private String descricao;
+    String descricao;
 
     @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
     List<PerfilSistema> sistemas;

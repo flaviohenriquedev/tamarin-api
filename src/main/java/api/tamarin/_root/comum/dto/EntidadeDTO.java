@@ -1,6 +1,8 @@
 package api.tamarin._root.comum.dto;
 
 import api.tamarin._root.comum.enums.Status;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
 import lombok.*;
 
@@ -10,6 +12,9 @@ import java.util.UUID;
 @Setter
 @MappedSuperclass
 public abstract class EntidadeDTO {
-    UUID id;
-    Status status;
+
+    private UUID id;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }

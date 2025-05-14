@@ -1,5 +1,6 @@
 package api.tamarin._root.comum.service.impl;
 
+import api.tamarin._root.comum.dto.EntidadeDTO;
 import api.tamarin._root.comum.service.DefaultService;
 import api.tamarin._root.comum.service.DtoMapper;
 import jakarta.persistence.EntityNotFoundException;
@@ -10,30 +11,32 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public abstract class DefaultServiceImpl<E, D> implements DefaultService<D> {
+public abstract class DefaultServiceImpl<E, D extends EntidadeDTO> implements DefaultService<D> {
 
     protected abstract JpaRepository<E, UUID> getRepository();
     protected abstract DtoMapper<E, D> getMapper();
 
-    public List<D> findAll() {
-        return getRepository().findAll().stream()
-                .map(getMapper()::toDto)
-                .collect(Collectors.toList());
+    public List<D> listar() {
+        return getRepository()
+                .findAll()
+                .stream()
+                .map(e -> getMapper().toDto(e))
+                .toList();
     }
 
-    public D findById(UUID id) {
+    public D buscarPorId(UUID id) {
         return getRepository().findById(id)
                 .map(getMapper()::toDto)
                 .orElseThrow(() -> new EntityNotFoundException("ID " + id + " não encontrado"));
     }
 
-    public D save(D dto) {
+    public D salvar(D dto) {
         E entity = getMapper().toEntity(dto);
         E saved = getRepository().save(entity);
         return getMapper().toDto(saved);
     }
 
-    public D update(UUID id, D dto) {
+    public D alterar(UUID id, D dto) {
         if (!getRepository().existsById(id)) {
             throw new EntityNotFoundException("ID " + id + " não encontrado");
         }
@@ -44,7 +47,7 @@ public abstract class DefaultServiceImpl<E, D> implements DefaultService<D> {
         return getMapper().toDto(updated);
     }
 
-    public void delete(UUID id) {
+    public void deletar(UUID id) {
         getRepository().deleteById(id);
     }
 

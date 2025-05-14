@@ -1,12 +1,12 @@
 package api.tamarin._root.comum.model;
 
-import api.tamarin._root.comum.enums.Status;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -14,16 +14,16 @@ import java.util.UUID;
 public abstract class EntidadeAuditavel extends EntidadePadrao {
 
     @Column(name = "data_criacao", updatable = false)
-    Date dataCriacao;
+    private Date dataCriacao;
 
     @Column(name = "usuario_criacao", updatable = false)
-    String usuarioCriacao;
+    private String usuarioCriacao;
 
     @Column(name = "data_alteracao")
-    Date dataAlteracao;
+    private Date dataAlteracao;
 
     @Column(name = "usuario_alteracao")
-    String usuarioAlteracao;
+    private String usuarioAlteracao;
 
     @PrePersist
     public void prePersist() {
@@ -33,10 +33,6 @@ public abstract class EntidadeAuditavel extends EntidadePadrao {
 
         if (usuarioCriacao == null) {
             usuarioCriacao = "FLAVIO HENRIQUE MOREIRA ROSA";
-        }
-
-        if (status == null) {
-            status = Status.ATIVO;
         }
     }
 }

@@ -14,8 +14,8 @@ public abstract class EntidadePadrao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID id;
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
-    Status status;
+    private Status status;
 }
