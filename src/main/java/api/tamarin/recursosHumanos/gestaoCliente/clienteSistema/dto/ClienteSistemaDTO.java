@@ -1,6 +1,7 @@
 package api.tamarin.recursosHumanos.gestaoCliente.clienteSistema.dto;
 
-import api.tamarin.recursosHumanos.gestaoCliente.cliente.model.Cliente;
+import api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistema.dto.PerfilSistemaDTO;
+import api.tamarin.recursosHumanos.gestaoCliente.cliente.dto.ClienteDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClienteSistemaDTO {
-    private Cliente cliente;
+    private PerfilSistemaDTO perfilSistema;
+    private ClienteDTO cliente;
     private String keySistema;
 }

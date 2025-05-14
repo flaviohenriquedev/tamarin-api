@@ -1,13 +1,12 @@
 package api.tamarin._root.comum.service;
 
-import api.tamarin._root.comum.model.EntidadePadrao;
-import org.springframework.http.ResponseEntity;
-
 import java.util.List;
 import java.util.UUID;
 
-public interface DefaultService<E extends EntidadePadrao> {
-    List<E> findAll();
-    E findById(UUID id);
-    E salvar(E entidade);
+public interface DefaultService<D> {
+    D findById(UUID id);
+    List<D> findAll();
+    D save(D dto);
+    D update(UUID id, D dto);
+    void delete(UUID id);
 }

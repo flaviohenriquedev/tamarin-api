@@ -27,7 +27,7 @@ public class PerfilSistema extends EntidadePadrao {
     @JoinColumn(name = "id_perfil")
     private Perfil perfil;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_cliente_sistema")
     private ClienteSistema clienteSistema;
 

@@ -2,6 +2,7 @@ package api.tamarin.recursosHumanos.gestaoCliente.clienteSistema.model;
 
 import api.tamarin._root.comum.model.EntidadePadrao;
 import api.tamarin._root.comum.serializer.impl.IDSerializer;
+import api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistema.model.PerfilSistema;
 import api.tamarin.recursosHumanos.gestaoCliente.cliente.model.Cliente;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
@@ -17,6 +18,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "cliente_sistema")
 public class ClienteSistema extends EntidadePadrao {
+
+    @JsonSerialize(using = IDSerializer.class)
+    @ManyToOne
+    @JoinColumn(name = "id_perfil_sistema")
+    private PerfilSistema perfilSistema;
 
     @JsonSerialize(using = IDSerializer.class)
     @ManyToOne

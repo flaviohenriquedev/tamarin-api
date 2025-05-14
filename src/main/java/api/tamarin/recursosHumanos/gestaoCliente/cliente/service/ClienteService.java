@@ -1,6 +1,6 @@
 package api.tamarin.recursosHumanos.gestaoCliente.cliente.service;
 
-import api.tamarin._root.comum.dto.DtoConverter;
+import api.tamarin._root.comum.useCase.DtoConverter;
 import api.tamarin._root.comum.service.impl.DefaultServiceImpl;
 import api.tamarin.recursosHumanos.gestaoCliente.cliente.model.Cliente;
 import api.tamarin.recursosHumanos.gestaoCliente.cliente.repository.ClienteRepository;

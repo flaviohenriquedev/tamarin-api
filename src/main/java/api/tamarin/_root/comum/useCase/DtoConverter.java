@@ -1,4 +1,4 @@
-package api.tamarin._root.comum.dto;
+package api.tamarin._root.comum.useCase;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
