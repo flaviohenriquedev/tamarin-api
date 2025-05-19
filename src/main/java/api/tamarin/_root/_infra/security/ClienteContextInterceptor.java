@@ -29,7 +29,7 @@ public class ClienteContextInterceptor implements HandlerInterceptor {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
 
-            String email = tokenService.validateToken(token); // <- pega o e-mail do usuário
+            String email = tokenService.validateToken(token).getBody(); // <- pega o e-mail do usuário
 
             if (email != null) {
                 Usuario usuario = usuarioRepository.findByEmail(email)
