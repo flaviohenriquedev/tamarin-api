@@ -3,6 +3,7 @@ package api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfil.service;
 import api.tamarin._root.comum.service.DtoMapper;
 import api.tamarin._root.comum.service.impl.DefaultServiceImpl;
 import api.tamarin._root.comum.service.impl.DtoMapperImpl;
+import api.tamarin.gerenciamentoSistema.gestaoCliente.cliente.dto.ClienteDTO;
 import api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfil.dto.PerfilDTO;
 import api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfil.model.Perfil;
 import api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfil.repository.PerfilRepository;
@@ -45,12 +46,12 @@ public class PerfilService extends DefaultServiceImpl<Perfil, PerfilDTO> {
     public PerfilDTO salvar(PerfilDTO perfil) {
         PerfilDTO perfilDTO = new PerfilDTO();
         perfilDTO.setDescricao(perfil.getDescricao());
+        perfilDTO.setCliente(new ClienteDTO(perfil.getCliente().getId()));
         PerfilDTO perfilSalvo = super.salvar(perfilDTO);
-
         if (!perfil.getSistemas().isEmpty()) {
             for (PerfilSistemaDTO sistema : perfil.getSistemas()) {
                 sistema.setPerfil(perfilSalvo);
-                PerfilSistemaDTO perfilSistemaSalvo = perfilSistemaService.salvar(sistema);
+                perfilSistemaService.salvar(sistema);
             }
         }
 

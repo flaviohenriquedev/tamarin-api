@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,4 +18,8 @@ public class ClienteDTO extends EntidadeDTO {
     private String cnpj;
     private LocalDate dataAbertura;
     private List<ClienteSistemaDTO> sistemas;
+
+    public ClienteDTO(UUID id) {
+        super.setId(id);
+    }
 }
