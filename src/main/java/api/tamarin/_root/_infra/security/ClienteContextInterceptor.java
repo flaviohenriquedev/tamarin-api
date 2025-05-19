@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.util.Objects;
+
 @Component
 public class ClienteContextInterceptor implements HandlerInterceptor {
 
@@ -35,10 +37,8 @@ public class ClienteContextInterceptor implements HandlerInterceptor {
                 Usuario usuario = usuarioRepository.findByEmail(email)
                         .orElse(null); // evitar lançar exceção aqui
 
-                if (usuario != null && !Boolean.TRUE.equals(usuario.getUsuarioMaster())) {
-                    if (clienteId != null && !clienteId.isBlank()) {
-                        clienteContextService.setClienteId(clienteId);
-                    }
+                if (clienteId != null && Objects.nonNull(usuario) && !clienteId.isBlank()) {
+                    clienteContextService.setClienteId(clienteId, usuario.getUsuarioMaster());
                 }
             }
         }

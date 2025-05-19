@@ -14,10 +14,16 @@ public class ClienteContextService {
     private static final ThreadLocal<String> clienteIdHolder = new ThreadLocal<>();
 
     @Transactional
-    public void setClienteId(String clienteId) {
-        String sql = "SET app.current_cliente_id = \"" + clienteId + "\"";
-        entityManager.createNativeQuery(sql).executeUpdate();
-        clienteIdHolder.set(clienteId);
+    public void setClienteId(String clienteId, Boolean isUsuarioMaster) {
+        if (isUsuarioMaster) {
+            // Limpa a variável de sessão do PostgreSQL
+            entityManager.createNativeQuery("RESET app.current_id_cliente").executeUpdate();
+            clienteIdHolder.remove();
+        } else {
+            String sql = "SET app.current_id_cliente = '" + clienteId + "'";
+            entityManager.createNativeQuery(sql).executeUpdate();
+            clienteIdHolder.set(clienteId);
+        }
     }
     public String getClienteId() {
         return clienteIdHolder.get();
