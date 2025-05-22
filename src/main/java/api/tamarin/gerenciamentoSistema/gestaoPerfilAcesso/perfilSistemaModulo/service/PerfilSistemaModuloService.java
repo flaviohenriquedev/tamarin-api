@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -23,12 +26,17 @@ public class PerfilSistemaModuloService extends DefaultServiceImpl<PerfilSistema
     private ModelMapper modelMapper;
 
     @Override
-    protected JpaRepository<PerfilSistemaModulo, UUID> getRepository() {
+    protected JpaRepository<PerfilSistemaModulo, UUID> getPerfilRepository() {
         return perfilSistemaModuloRepository;
     }
 
     @Override
     protected DtoMapper<PerfilSistemaModulo, PerfilSistemaModuloDTO> getMapper() {
         return new DtoMapperImpl<>(modelMapper, PerfilSistemaModulo.class, PerfilSistemaModuloDTO.class);
+    }
+
+    public Set<PerfilSistemaModuloDTO> findByPerfilSistemaId(UUID idPerfilSistema) {
+        List<PerfilSistemaModulo> listaModulos = perfilSistemaModuloRepository.findByPerfilSistemaId(idPerfilSistema);
+        return listaModulos.isEmpty() ? Set.of() : new HashSet<>(getMapper().toDtoList(listaModulos));
     }
 }

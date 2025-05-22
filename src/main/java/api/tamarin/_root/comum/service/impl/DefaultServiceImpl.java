@@ -9,15 +9,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public abstract class DefaultServiceImpl<E, D extends EntidadeDTO> implements DefaultService<D> {
 
-    protected abstract JpaRepository<E, UUID> getRepository();
+    protected abstract JpaRepository<E, UUID> getPerfilRepository();
     protected abstract DtoMapper<E, D> getMapper();
 
     public List<D> listar() {
-        return getRepository()
+        return getPerfilRepository()
                 .findAll()
                 .stream()
                 .map(e -> getMapper().toDto(e))
@@ -25,30 +24,30 @@ public abstract class DefaultServiceImpl<E, D extends EntidadeDTO> implements De
     }
 
     public D buscarPorId(UUID id) {
-        return getRepository().findById(id)
+        return getPerfilRepository().findById(id)
                 .map(getMapper()::toDto)
                 .orElseThrow(() -> new EntityNotFoundException("ID " + id + " não encontrado"));
     }
 
     public D salvar(D dto) {
         E entity = getMapper().toEntity(dto);
-        E saved = getRepository().save(entity);
+        E saved = getPerfilRepository().save(entity);
         return getMapper().toDto(saved);
     }
 
     public D alterar(UUID id, D dto) {
-        if (!getRepository().existsById(id)) {
+        if (!getPerfilRepository().existsById(id)) {
             throw new EntityNotFoundException("ID " + id + " não encontrado");
         }
 
         E entity = getMapper().toEntity(dto);
         setId(entity, id); // define o ID da entidade
-        E updated = getRepository().save(entity);
+        E updated = getPerfilRepository().save(entity);
         return getMapper().toDto(updated);
     }
 
     public void deletar(UUID id) {
-        getRepository().deleteById(id);
+        getPerfilRepository().deleteById(id);
     }
 
     // Utilitário pra setar o ID via reflection (pra manter genérico)

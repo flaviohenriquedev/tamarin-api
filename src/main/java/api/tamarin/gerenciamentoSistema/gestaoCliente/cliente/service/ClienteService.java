@@ -7,11 +7,13 @@ import api.tamarin.gerenciamentoSistema.gestaoCliente.cliente.dto.ClienteDTO;
 import api.tamarin.gerenciamentoSistema.gestaoCliente.cliente.model.Cliente;
 import api.tamarin.gerenciamentoSistema.gestaoCliente.cliente.repository.ClienteRepository;
 import api.tamarin.gerenciamentoSistema.gestaoCliente.clienteSistema.service.ClienteSistemaService;
+import api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfil.model.Perfil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -27,7 +29,7 @@ public class ClienteService extends DefaultServiceImpl<Cliente, ClienteDTO> {
     private ClienteSistemaService clienteSistemaService;
 
     @Override
-    protected JpaRepository<Cliente, UUID> getRepository() {
+    protected JpaRepository<Cliente, UUID> getPerfilRepository() {
         return clienteRepository;
     }
 
@@ -46,5 +48,21 @@ public class ClienteService extends DefaultServiceImpl<Cliente, ClienteDTO> {
             });
         }
         return clienteSalvo;
+    }
+
+    @Override
+    public List<ClienteDTO> listar() {
+        List<ClienteDTO> retorno = super.listar();
+        if (!retorno.isEmpty()) {
+            retorno.forEach(cliente -> cliente.setSistemas(
+                    clienteSistemaService.listarPorIdCliente(cliente.getId())
+            ));
+        }
+        return retorno;
+    }
+
+    public void salvarEmMassa(List<ClienteDTO> lista) {
+        List<Cliente> listaCliente = getMapper().toEntityList(lista);
+        clienteRepository.saveAll(listaCliente);
     }
 }

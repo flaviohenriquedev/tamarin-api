@@ -2,9 +2,7 @@ package api.tamarin.gerenciamentoSistema.gestaoCliente.clienteSistema.model;
 
 import api.tamarin._root.comum.model.EntidadePadrao;
 import api.tamarin._root.comum.serializer.impl.IDSerializer;
-import api.tamarin.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistema.model.PerfilSistema;
 import api.tamarin.gerenciamentoSistema.gestaoCliente.cliente.model.Cliente;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

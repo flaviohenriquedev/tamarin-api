@@ -26,10 +26,25 @@ public class Cliente extends EntidadeAuditavel {
     @Column(name = "razao_social")
     private String razaoSocial;
 
-    private String cnpj;
-
     @Column(name = "data_abertura")
     private LocalDate dataAbertura;
+
+    @Column(name = "inscricao_estadual")
+    private String inscricaoEstadual;
+
+    @Column(name = "inscricao_municipal")
+    private String inscricaoMunicipal;
+
+    private String cnpj;
+    private String telefone;
+    private String email;
+    private String logradouro;
+    private String numero;
+    private String complemento;
+    private String bairro;
+    private String cidade;
+    private String uf;
+    private String cep;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ClienteSistema> sistemas = new ArrayList<>();

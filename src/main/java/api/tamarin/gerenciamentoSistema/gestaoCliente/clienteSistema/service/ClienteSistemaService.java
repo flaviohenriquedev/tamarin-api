@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -23,12 +24,16 @@ public class ClienteSistemaService extends DefaultServiceImpl<ClienteSistema, Cl
     private ModelMapper modelMapper;
 
     @Override
-    protected JpaRepository<ClienteSistema, UUID> getRepository() {
+    protected JpaRepository<ClienteSistema, UUID> getPerfilRepository() {
         return clienteSistemaRepository;
     }
 
     @Override
     protected DtoMapper<ClienteSistema, ClienteSistemaDTO> getMapper() {
         return new DtoMapperImpl<>(modelMapper, ClienteSistema.class, ClienteSistemaDTO.class);
+    }
+
+    public List<ClienteSistemaDTO> listarPorIdCliente(UUID idCliente) {
+        return getMapper().toDtoList(clienteSistemaRepository.findByClienteId(idCliente));
     }
 }

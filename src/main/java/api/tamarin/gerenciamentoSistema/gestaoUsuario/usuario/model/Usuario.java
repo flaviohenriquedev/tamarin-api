@@ -2,11 +2,16 @@ package api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.model;
 
 import api.tamarin._root.comum.model.EntidadeAuditavel;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.enums.StatusUsuarioENUM;
+import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioPerfil.model.UsuarioPerfil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.Mapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,6 +31,10 @@ public class Usuario extends EntidadeAuditavel {
     @Enumerated(EnumType.STRING)
     private StatusUsuarioENUM statusUsuario;
 
-    @Column(name = "usuario_master")
-    private Boolean usuarioMaster;
+    @Column(name = "usuario_master", columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean usuarioMaster = Boolean.FALSE;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UsuarioPerfil> listaPerfil = new ArrayList<>();
+
 }
