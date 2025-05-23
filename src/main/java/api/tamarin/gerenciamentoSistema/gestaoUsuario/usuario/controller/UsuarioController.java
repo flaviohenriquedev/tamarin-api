@@ -5,6 +5,9 @@ import api.tamarin._root.comum.service.DefaultService;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.dto.UsuarioDTO;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,5 +21,10 @@ public class UsuarioController extends DefaultController<UsuarioDTO> {
     @Override
     protected DefaultService<UsuarioDTO> getService() {
         return service;
+    }
+
+    @GetMapping("/getuser/{email}")
+    public ResponseEntity<UsuarioDTO> getUser(@PathVariable String email) {
+        return ResponseEntity.ok(service.getUser(email));
     }
 }

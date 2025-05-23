@@ -36,9 +36,16 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
         return new DtoMapperImpl<>(modelMapper, Usuario.class, UsuarioDTO.class);
     }
 
+    public UsuarioDTO findByEmail(String email) {
+        return getMapper().toDto(repository.findByEmail(email).orElse(new Usuario()));
+    }
+
     @Override
     public UsuarioDTO salvar(UsuarioDTO dto) {
         if (!repository.existsByEmail(dto.getEmail())) {
+            if (!dto.getClientes().isEmpty()) {
+                dto.getClientes().forEach(cliente -> cliente.setUsuario(dto));
+            }
             Usuario entity = getMapper().toEntity(dto);
             String digitosCPF = entity.getCpf().substring(0, 5);
             entity.setSenha(passwordEncoder.encode(digitosCPF));
@@ -47,5 +54,13 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
             return getMapper().toDto(saved);
         }
         return new UsuarioDTO();
+    }
+
+    public UsuarioDTO getUser(String email) {
+        UsuarioDTO usuario = this.findByEmail(email);
+
+
+
+        return usuario;
     }
 }

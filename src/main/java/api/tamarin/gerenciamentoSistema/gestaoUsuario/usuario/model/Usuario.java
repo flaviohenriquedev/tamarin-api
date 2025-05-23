@@ -2,13 +2,13 @@ package api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.model;
 
 import api.tamarin._root.comum.model.EntidadeAuditavel;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.enums.StatusUsuarioENUM;
+import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioCliente.model.UsuarioCliente;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioPerfil.model.UsuarioPerfil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.Mapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "usuario")
 public class Usuario extends EntidadeAuditavel {
+
     private String nome;
     private String email;
     private String cpf;
@@ -36,5 +37,8 @@ public class Usuario extends EntidadeAuditavel {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UsuarioPerfil> listaPerfil = new ArrayList<>();
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UsuarioCliente> clientes = new ArrayList<>();
 
 }

@@ -2,6 +2,7 @@ package api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.dto;
 
 import api.tamarin._root.comum.dto.EntidadeDTO;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.enums.StatusUsuarioENUM;
+import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioCliente.dto.UsuarioClienteDTO;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioPerfil.dto.UsuarioPerfilDTO;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -31,4 +32,5 @@ public class UsuarioDTO extends EntidadeDTO {
     private Boolean usuarioMaster = Boolean.FALSE;
 
     private List<UsuarioPerfilDTO> listaPerfil = new ArrayList<>();
+    private List<UsuarioClienteDTO> clientes = new ArrayList<>();
 }
