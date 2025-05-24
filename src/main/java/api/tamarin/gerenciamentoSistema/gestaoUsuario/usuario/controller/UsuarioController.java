@@ -23,8 +23,8 @@ public class UsuarioController extends DefaultController<UsuarioDTO> {
         return service;
     }
 
-    @GetMapping("/getuser/{email}")
-    public ResponseEntity<UsuarioDTO> getUser(@PathVariable String email) {
-        return ResponseEntity.ok(service.getUser(email));
+    @GetMapping("/buscarUsuarioPorEmail/{email}")
+    public ResponseEntity<UsuarioDTO> buscarUsuarioPorEmail(@PathVariable String email) {
+        return ResponseEntity.ok(service.buscarUsuarioPorEmail(email));
     }
 }

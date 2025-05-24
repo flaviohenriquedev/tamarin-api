@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -32,4 +33,7 @@ public class PerfilSistemaService extends DefaultServiceImpl<PerfilSistema, Perf
         return new DtoMapperImpl<>(modelMapper, PerfilSistema.class, PerfilSistemaDTO.class);
     }
 
+    public List<PerfilSistemaDTO> listarPorIdPerfil(UUID id) {
+        return getMapper().toDtoList(perfilSistemaRepository.findByPerfilId(id));
+    }
 }

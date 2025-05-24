@@ -2,7 +2,6 @@ package api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.model;
 
 import api.tamarin._root.comum.model.EntidadeAuditavel;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.enums.StatusUsuarioENUM;
-import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioCliente.model.UsuarioCliente;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioPerfil.model.UsuarioPerfil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,8 +25,6 @@ public class Usuario extends EntidadeAuditavel {
     private String cpf;
     private String senha;
     private String token;
-    private String linkFotoPerfil;
-    private String perfil;
 
     @Enumerated(EnumType.STRING)
     private StatusUsuarioENUM statusUsuario;
@@ -36,9 +33,6 @@ public class Usuario extends EntidadeAuditavel {
     private Boolean usuarioMaster = Boolean.FALSE;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UsuarioPerfil> listaPerfil = new ArrayList<>();
-
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UsuarioCliente> clientes = new ArrayList<>();
+    private List<UsuarioPerfil> perfis = new ArrayList<>();
 
 }
