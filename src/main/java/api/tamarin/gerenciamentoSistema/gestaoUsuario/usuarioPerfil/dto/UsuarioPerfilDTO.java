@@ -15,5 +15,5 @@ import lombok.*;
 public class UsuarioPerfilDTO extends EntidadeAuditavelDTO {
     @JsonIgnore
     private UsuarioDTO usuario;
-    private PerfilDTO perfilDTO;
+    private PerfilDTO perfil;
 }

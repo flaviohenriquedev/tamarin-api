@@ -14,10 +14,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class PerfilService extends DefaultServiceImpl<Perfil, PerfilDTO> {
@@ -35,7 +32,7 @@ public class PerfilService extends DefaultServiceImpl<Perfil, PerfilDTO> {
     private PerfilSistemaModuloService perfilSistemaModuloService;
 
     @Override
-    protected JpaRepository<Perfil, UUID> getPerfilRepository() {
+    protected JpaRepository<Perfil, UUID> getRepository() {
         return perfilRepository;
     }
 
@@ -81,4 +78,9 @@ public class PerfilService extends DefaultServiceImpl<Perfil, PerfilDTO> {
         return listaPerfil.isEmpty() ? Set.of() : new HashSet<>(getMapper().toDtoList(listaPerfil));
     }
 
+    public PerfilDTO findById(UUID perfilId) {
+        Perfil perfil = perfilRepository.findById(perfilId)
+                .orElseThrow(() -> new IllegalArgumentException("Perfil não encontrado: " + perfilId));
+        return getMapper().toDto(perfil);
+    }
 }

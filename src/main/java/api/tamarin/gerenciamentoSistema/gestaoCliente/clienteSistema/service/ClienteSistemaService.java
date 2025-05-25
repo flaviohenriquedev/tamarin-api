@@ -24,7 +24,7 @@ public class ClienteSistemaService extends DefaultServiceImpl<ClienteSistema, Cl
     private ModelMapper modelMapper;
 
     @Override
-    protected JpaRepository<ClienteSistema, UUID> getPerfilRepository() {
+    protected JpaRepository<ClienteSistema, UUID> getRepository() {
         return clienteSistemaRepository;
     }
 

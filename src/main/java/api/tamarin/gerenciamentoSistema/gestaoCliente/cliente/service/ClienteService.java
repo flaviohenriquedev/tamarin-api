@@ -29,7 +29,7 @@ public class ClienteService extends DefaultServiceImpl<Cliente, ClienteDTO> {
     private ClienteSistemaService clienteSistemaService;
 
     @Override
-    protected JpaRepository<Cliente, UUID> getPerfilRepository() {
+    protected JpaRepository<Cliente, UUID> getRepository() {
         return clienteRepository;
     }
 

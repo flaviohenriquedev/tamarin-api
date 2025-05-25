@@ -22,7 +22,7 @@ public class UsuarioPerfil extends EntidadeAuditavel {
     private Usuario usuario;
 
     @JoinColumn(name = "id_perfil")
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Perfil perfil;
 
 }

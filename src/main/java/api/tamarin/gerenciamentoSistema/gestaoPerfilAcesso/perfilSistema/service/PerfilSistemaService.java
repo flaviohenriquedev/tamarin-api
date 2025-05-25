@@ -24,7 +24,7 @@ public class PerfilSistemaService extends DefaultServiceImpl<PerfilSistema, Perf
     private ModelMapper modelMapper;
 
     @Override
-    protected JpaRepository<PerfilSistema, UUID> getPerfilRepository() {
+    protected JpaRepository<PerfilSistema, UUID> getRepository() {
         return perfilSistemaRepository;
     }
 

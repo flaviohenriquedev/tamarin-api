@@ -12,11 +12,12 @@ import java.util.UUID;
 
 public abstract class DefaultServiceImpl<E, D extends EntidadeDTO> implements DefaultService<D> {
 
-    protected abstract JpaRepository<E, UUID> getPerfilRepository();
+    protected abstract JpaRepository<E, UUID> getRepository();
+
     protected abstract DtoMapper<E, D> getMapper();
 
     public List<D> listar() {
-        return getPerfilRepository()
+        return getRepository()
                 .findAll()
                 .stream()
                 .map(e -> getMapper().toDto(e))
@@ -24,30 +25,36 @@ public abstract class DefaultServiceImpl<E, D extends EntidadeDTO> implements De
     }
 
     public D buscarPorId(UUID id) {
-        return getPerfilRepository().findById(id)
+        return getRepository().findById(id)
                 .map(getMapper()::toDto)
                 .orElseThrow(() -> new EntityNotFoundException("ID " + id + " não encontrado"));
     }
 
     public D salvar(D dto) {
         E entity = getMapper().toEntity(dto);
-        E saved = getPerfilRepository().save(entity);
+        E saved = getRepository().save(entity);
         return getMapper().toDto(saved);
     }
 
     public D alterar(UUID id, D dto) {
-        if (!getPerfilRepository().existsById(id)) {
+        if (!getRepository().existsById(id)) {
             throw new EntityNotFoundException("ID " + id + " não encontrado");
         }
 
         E entity = getMapper().toEntity(dto);
         setId(entity, id); // define o ID da entidade
-        E updated = getPerfilRepository().save(entity);
+        E updated = getRepository().save(entity);
         return getMapper().toDto(updated);
     }
 
     public void deletar(UUID id) {
-        getPerfilRepository().deleteById(id);
+        getRepository().deleteById(id);
+    }
+
+    @Override
+    public List<D> salvarTodos(List<D> dtos) {
+        List<E> listaEntidade = getMapper().toEntityList(dtos);
+        return getMapper().toDtoList(getRepository().saveAll(listaEntidade));
     }
 
     // Utilitário pra setar o ID via reflection (pra manter genérico)
@@ -60,5 +67,6 @@ public abstract class DefaultServiceImpl<E, D extends EntidadeDTO> implements De
             throw new RuntimeException("Falha ao setar o ID na entidade", e);
         }
     }
+
 }
 

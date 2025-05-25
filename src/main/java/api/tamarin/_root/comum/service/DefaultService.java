@@ -11,4 +11,5 @@ public interface DefaultService<D extends EntidadeDTO> {
     D salvar(D dto);
     D alterar(UUID id, D dto);
     void deletar(UUID id);
+    List<D> salvarTodos(List<D> dtos);
 }

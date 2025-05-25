@@ -4,18 +4,17 @@ import api.tamarin._root.comum.dto.EntidadeAuditavelDTO;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuario.enums.StatusUsuarioENUM;
 import api.tamarin.gerenciamentoSistema.gestaoUsuario.usuarioPerfil.dto.UsuarioPerfilDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UsuarioDTO extends EntidadeAuditavelDTO {
     private String nome;
     private String email;
@@ -27,4 +26,8 @@ public class UsuarioDTO extends EntidadeAuditavelDTO {
 
     @JsonIgnore
     private String senha;
+
+    public UsuarioDTO(UUID id) {
+        super.setId(id);
+    }
 }
