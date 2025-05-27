@@ -2,6 +2,8 @@ package api.tamarin._root.comum.controller;
 
 import api.tamarin._root.comum.dto.EntidadeDTO;
 import api.tamarin._root.comum.service.DefaultService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +34,12 @@ public abstract class DefaultController<D extends EntidadeDTO> {
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable UUID id) {
-        getService().deletar(id);
+    public ResponseEntity<Boolean> deletar(@PathVariable UUID id) {
+        try {
+            getService().deletar(id);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
+        }
     }
 }
