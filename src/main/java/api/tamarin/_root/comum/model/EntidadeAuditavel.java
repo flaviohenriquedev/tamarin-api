@@ -24,15 +24,4 @@ public abstract class EntidadeAuditavel extends EntidadePadrao {
 
     @Column(name = "usuario_alteracao")
     private String usuarioAlteracao;
-
-    @PrePersist
-    public void prePersist() {
-        if (dataCriacao == null) {
-            dataCriacao = new Date();
-        }
-
-        if (usuarioCriacao == null) {
-            usuarioCriacao = "FLAVIO HENRIQUE MOREIRA ROSA";
-        }
-    }
 }
