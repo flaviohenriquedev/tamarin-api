@@ -1,6 +1,6 @@
 package api.tamarin._root.comum.service.impl;
 
-import api.tamarin._root.comum.dto.EntidadeDTO;
+import api.tamarin._root.comum.dto.EntidadePadraoDTO;
 import api.tamarin._root.comum.service.DefaultService;
 import api.tamarin._root.comum.service.DtoMapper;
 import jakarta.persistence.EntityNotFoundException;
@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class DefaultServiceImpl<E, D extends EntidadeDTO> implements DefaultService<D> {
+public abstract class DefaultServiceImpl<E, D extends EntidadePadraoDTO> implements DefaultService<D> {
 
     protected abstract JpaRepository<E, UUID> getRepository();
 

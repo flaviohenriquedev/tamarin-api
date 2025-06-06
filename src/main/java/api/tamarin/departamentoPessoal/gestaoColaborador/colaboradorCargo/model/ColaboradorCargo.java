@@ -1,11 +1,10 @@
-package api.tamarin.departamentoPessoal.gestao.admissao.model;
+package api.tamarin.departamentoPessoal.gestaoColaborador.colaboradorCargo.model;
 
-import api.tamarin._root.comum.model.EntidadeCliente;
+import api.tamarin._root.comum.model.EntidadePadrao;
 import api.tamarin.departamentoPessoal.administracao.cargaHoraria.model.CargaHoraria;
 import api.tamarin.departamentoPessoal.administracao.cargo.model.Cargo;
 import api.tamarin.departamentoPessoal.administracao.departamento.model.Departamento;
 import api.tamarin.departamentoPessoal.administracao.tipoContrato.model.TipoContrato;
-import api.tamarin.gerenciamentoSistema.gestaoLocalidade.cidade.model.Cidade;
 import api.tamarin.departamentoPessoal.gestaoColaborador.colaborador.model.Colaborador;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,8 +12,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -22,24 +19,18 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "admissao")
-public class Admissao extends EntidadeCliente {
-    private String nomeCompleto;
-    private String cpf;
-    private Date dataNascimento;
-    private String nascionalidade;
-    private String nomeMae;
-    private String rua;
-    private String quadra;
-    private String lote;
-    private String numero;
-    private String bairro;
-    public BigDecimal salario;
-    public Timestamp dataAdmissao;
+@Table(name = "colaborador_cargo")
+public class ColaboradorCargo extends EntidadePadrao {
 
-    @JoinColumn(name = "id_cidade")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Cidade cidade;
+    @JoinColumn(name = "id_colaborador")
+    private Colaborador colaborador;
+
+    @Column(name = "vigencia_inicial")
+    private Date vigenciaInicial;
+
+    @Column(name = "vigencia_final")
+    private Date vigenciaFinal;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cargo")
@@ -56,9 +47,4 @@ public class Admissao extends EntidadeCliente {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_departamento")
     private Departamento departamento;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_colaborador")
-    private Colaborador colaborador;
-
 }

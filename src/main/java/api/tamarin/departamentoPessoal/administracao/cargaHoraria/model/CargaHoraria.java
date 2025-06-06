@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import jakarta.persistence.*;
-
 @Entity
 @Getter
 @Setter
@@ -23,16 +21,15 @@ public class CargaHoraria extends EntidadeCliente {
     private Integer horaAlmoco;
     private String descricao;
 
-    @PrePersist
-    @PreUpdate
-    public void atualizarDescricao() {
+    public String getDescricao() {
         if (horaInicial != null && horaFinal != null && horaAlmoco != null) {
             String horaIni = String.format("%02d:00", horaInicial);
             String horaFim = String.format("%02d:00", horaFinal);
             String almoco = String.format("%d hora%s de almoço", horaAlmoco, horaAlmoco != 1 ? "s" : "");
 
-            this.descricao = String.format("Das %s às %s com %s", horaIni, horaFim, almoco);
+            return String.format("Das %s às %s com %s", horaIni, horaFim, almoco);
         }
+        return "";
     }
 
     @Override

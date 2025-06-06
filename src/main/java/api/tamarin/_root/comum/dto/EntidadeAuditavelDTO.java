@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class EntidadeAuditavelDTO extends EntidadeDTO {
+public abstract class EntidadeAuditavelDTO extends EntidadePadraoDTO {
     private Date dataCriacao;
     private String usuarioCriacao;
     private Date dataAlteracao;

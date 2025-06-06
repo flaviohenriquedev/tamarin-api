@@ -1,6 +1,6 @@
 package api.tamarin._root.comum.controller;
 
-import api.tamarin._root.comum.dto.EntidadeDTO;
+import api.tamarin._root.comum.dto.EntidadePadraoDTO;
 import api.tamarin._root.comum.service.DefaultService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class DefaultController<D extends EntidadeDTO> {
+public abstract class DefaultController<D extends EntidadePadraoDTO> {
 
     protected abstract DefaultService<D> getService();
 

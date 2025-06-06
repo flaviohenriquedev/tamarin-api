@@ -42,6 +42,19 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
         return new DtoMapperImpl<>(modelMapper, Usuario.class, UsuarioDTO.class);
     }
 
+    public boolean existePorEmail(String email) {
+        return repository.existsByEmail("admin@admin");
+    }
+
+    public void createUserAdmin(String email) {
+        UsuarioDTO usuario = new UsuarioDTO();
+        usuario.setNome("Admin");
+        usuario.setEmail(email);
+        usuario.setSenha(passwordEncoder.encode("g0mm0"));
+        usuario.setUsuarioMaster(true);
+        this.salvar(usuario);
+    }
+
     public UsuarioDTO buscarUsuarioPorEmail(String email) {
         return getMapper().toDto(repository.findByEmail(email).orElse(new Usuario()));
     }

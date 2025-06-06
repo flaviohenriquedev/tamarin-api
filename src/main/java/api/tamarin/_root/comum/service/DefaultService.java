@@ -1,11 +1,11 @@
 package api.tamarin._root.comum.service;
 
-import api.tamarin._root.comum.dto.EntidadeDTO;
+import api.tamarin._root.comum.dto.EntidadePadraoDTO;
 
 import java.util.List;
 import java.util.UUID;
 
-public interface DefaultService<D extends EntidadeDTO> {
+public interface DefaultService<D extends EntidadePadraoDTO> {
     D buscarPorId(UUID id);
     List<D> listar();
     D salvar(D dto);

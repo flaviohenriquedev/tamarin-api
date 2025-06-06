@@ -1,6 +1,6 @@
 package api.tamarin.gerenciamentoSistema.gestaoCliente.cliente.dto;
 
-import api.tamarin._root.comum.dto.EntidadeDTO;
+import api.tamarin._root.comum.dto.EntidadePadraoDTO;
 import api.tamarin.gerenciamentoSistema.gestaoCliente.clienteSistema.dto.ClienteSistemaDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteDTO extends EntidadeDTO {
+public class ClienteDTO extends EntidadePadraoDTO {
     private String nomeFantasia;
     private String razaoSocial;
     private LocalDate dataAbertura;
