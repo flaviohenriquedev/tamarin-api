@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>api</groupId>
-	<artifactId>tamarin</artifactId>
+	<artifactId>gommo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>tamarin-api</name>
-	<description>Backend Sitema Tamarin</description>
+	<name>gommo-api</name>
+	<description>Backend Sitema Gommo</description>
 	<url/>
 	<licenses>
 		<license/>

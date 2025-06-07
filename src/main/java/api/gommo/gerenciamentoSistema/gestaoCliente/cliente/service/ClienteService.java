@@ -1,0 +1,67 @@
+package api.gommo.gerenciamentoSistema.gestaoCliente.cliente.service;
+
+import api.gommo._root.comum.service.DtoMapper;
+import api.gommo._root.comum.service.impl.DefaultServiceImpl;
+import api.gommo._root.comum.service.impl.DtoMapperImpl;
+import api.gommo.gerenciamentoSistema.gestaoCliente.cliente.dto.ClienteDTO;
+import api.gommo.gerenciamentoSistema.gestaoCliente.cliente.model.Cliente;
+import api.gommo.gerenciamentoSistema.gestaoCliente.cliente.repository.ClienteRepository;
+import api.gommo.gerenciamentoSistema.gestaoCliente.clienteSistema.service.ClienteSistemaService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+
+@Service
+public class ClienteService extends DefaultServiceImpl<Cliente, ClienteDTO> {
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private ClienteSistemaService clienteSistemaService;
+
+    @Override
+    protected JpaRepository<Cliente, UUID> getRepository() {
+        return clienteRepository;
+    }
+
+    @Override
+    protected DtoMapper<Cliente, ClienteDTO> getMapper() {
+        return new DtoMapperImpl<>(modelMapper, Cliente.class, ClienteDTO.class);
+    }
+
+    @Override
+    public ClienteDTO salvar(ClienteDTO cliente) {
+        ClienteDTO clienteSalvo = super.salvar(cliente);
+        if (!cliente.getSistemas().isEmpty()) {
+            cliente.getSistemas().forEach(sistema -> {
+                sistema.setCliente(clienteSalvo);
+                clienteSistemaService.salvar(sistema);
+            });
+        }
+        return clienteSalvo;
+    }
+
+    @Override
+    public List<ClienteDTO> listar() {
+        List<ClienteDTO> retorno = super.listar();
+        if (!retorno.isEmpty()) {
+            retorno.forEach(cliente -> cliente.setSistemas(
+                    clienteSistemaService.listarPorIdCliente(cliente.getId())
+            ));
+        }
+        return retorno;
+    }
+
+    public void salvarEmMassa(List<ClienteDTO> lista) {
+        List<Cliente> listaCliente = getMapper().toEntityList(lista);
+        clienteRepository.saveAll(listaCliente);
+    }
+}

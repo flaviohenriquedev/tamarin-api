@@ -1,0 +1,20 @@
+package api.gommo._root.comum.dto;
+
+import api.gommo._root.comum.enums.Status;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.MappedSuperclass;
+import lombok.*;
+
+import java.util.UUID;
+
+@Getter
+@Setter
+@MappedSuperclass
+public abstract class EntidadePadraoDTO {
+
+    private UUID id;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+}
