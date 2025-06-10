@@ -1,5 +1,6 @@
 package api.gommo.gerenciamentoSistema.gestaoLocalidade.pais.service;
 
+import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
 import api.gommo._root.comum.service.impl.DtoMapperImpl;
@@ -23,7 +24,7 @@ public class PaisService extends DefaultServiceImpl<Pais, PaisDTO> {
     private ModelMapper modelMapper;
 
     @Override
-    protected JpaRepository<Pais, UUID> getRepository() {
+    protected DefaultRepository<Pais, UUID> getRepository() {
         return paisRepository;
     }
 

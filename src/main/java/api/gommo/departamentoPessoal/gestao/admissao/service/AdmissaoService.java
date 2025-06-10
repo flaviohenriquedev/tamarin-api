@@ -1,5 +1,6 @@
 package api.gommo.departamentoPessoal.gestao.admissao.service;
 
+import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
 import api.gommo._root.comum.service.impl.DtoMapperImpl;
@@ -40,7 +41,7 @@ public class AdmissaoService extends DefaultServiceImpl<Admissao, AdmissaoDTO> {
     private ColaboradorCargoService colaboradorCargoService;
 
     @Override
-    protected JpaRepository<Admissao, UUID> getRepository() {
+    protected DefaultRepository<Admissao, UUID> getRepository() {
         return admissaoRepository;
     }
 

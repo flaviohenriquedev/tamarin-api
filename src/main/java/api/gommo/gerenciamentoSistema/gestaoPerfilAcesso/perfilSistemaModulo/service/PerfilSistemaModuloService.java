@@ -1,5 +1,7 @@
 package api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistemaModulo.service;
 
+import api.gommo._root.comum.repository.DefaultRepository;
+import api.gommo._root.comum.repository.impl.DefaultRepositoryImpl;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
 import api.gommo._root.comum.service.impl.DtoMapperImpl;
@@ -26,7 +28,7 @@ public class PerfilSistemaModuloService extends DefaultServiceImpl<PerfilSistema
     private ModelMapper modelMapper;
 
     @Override
-    protected JpaRepository<PerfilSistemaModulo, UUID> getRepository() {
+    protected DefaultRepository<PerfilSistemaModulo, UUID> getRepository() {
         return perfilSistemaModuloRepository;
     }
 

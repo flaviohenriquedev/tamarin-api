@@ -1,9 +1,10 @@
 package api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistema.dto;
 
 import api.gommo._root.comum.dto.EntidadePadraoDTO;
+import api.gommo._root.comum.enums.SistemaENUM;
 import api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfil.dto.PerfilDTO;
 import api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistemaModulo.dto.PerfilSistemaModuloDTO;
-import api.gommo.gerenciamentoSistema.gestaoCliente.clienteSistema.dto.ClienteSistemaDTO;
+import api.gommo.gerenciamentoSistema.gestaoEmpresa.empresaSistema.dto.EmpresaSistemaDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,6 @@ import java.util.List;
 public class PerfilSistemaDTO extends EntidadePadraoDTO {
     @JsonIgnore
     private PerfilDTO perfil;
-    private ClienteSistemaDTO clienteSistema;
+    private SistemaENUM keySistema;
     private List<PerfilSistemaModuloDTO> rotas;
 }

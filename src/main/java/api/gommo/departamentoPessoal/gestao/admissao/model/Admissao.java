@@ -1,6 +1,6 @@
 package api.gommo.departamentoPessoal.gestao.admissao.model;
 
-import api.gommo._root.comum.model.EntidadeCliente;
+import api.gommo._root.comum.model.EntidadeTenant;
 import api.gommo.departamentoPessoal.administracao.cargaHoraria.model.CargaHoraria;
 import api.gommo.departamentoPessoal.administracao.cargo.model.Cargo;
 import api.gommo.departamentoPessoal.administracao.departamento.model.Departamento;
@@ -23,7 +23,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "admissao")
-public class Admissao extends EntidadeCliente {
+public class Admissao extends EntidadeTenant {
     private String nomeCompleto;
     private String cpf;
     private Date dataNascimento;

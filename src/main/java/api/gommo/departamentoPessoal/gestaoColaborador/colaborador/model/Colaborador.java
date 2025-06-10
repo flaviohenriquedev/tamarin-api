@@ -1,6 +1,6 @@
 package api.gommo.departamentoPessoal.gestaoColaborador.colaborador.model;
 
-import api.gommo._root.comum.model.EntidadeCliente;
+import api.gommo._root.comum.model.EntidadeTenant;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.enums.StatusColaboradorENUM;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.model.ColaboradorCargo;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.model.ColaboradorEndereco;
@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "colaborador")
-public class Colaborador extends EntidadeCliente {
+public class Colaborador extends EntidadeTenant {
 
     @Column(name = "nome_completo")
     private String nomeCompleto;

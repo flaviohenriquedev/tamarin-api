@@ -1,6 +1,6 @@
 package api.gommo.departamentoPessoal.gestaoColaborador.colaborador.dto;
 
-import api.gommo._root.comum.dto.EntidadeClienteDTO;
+import api.gommo._root.comum.dto.EntidadeTenantDTO;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.enums.StatusColaboradorENUM;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.dto.ColaboradorCargoDTO;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.dto.ColaboradorEnderecoDTO;
@@ -15,7 +15,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ColaboradorDTO extends EntidadeClienteDTO {
+public class ColaboradorDTO extends EntidadeTenantDTO {
     private String nomeCompleto;
     private String cpf;
     private Date dataNascimento;

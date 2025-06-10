@@ -1,6 +1,6 @@
 package api.gommo.departamentoPessoal.administracao.cargaHoraria.dto;
 
-import api.gommo._root.comum.dto.EntidadeClienteDTO;
+import api.gommo._root.comum.dto.EntidadeTenantDTO;
 import lombok.*;
 
 @Getter
@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CargaHorariaDTO extends EntidadeClienteDTO {
+public class CargaHorariaDTO extends EntidadeTenantDTO {
     private Integer horaInicial;
     private Integer horaFinal;
     private Integer horaAlmoco;

@@ -21,14 +21,4 @@ public class PerfilController extends DefaultController<PerfilDTO> {
     protected DefaultService<PerfilDTO> getService() {
         return perfilService;
     }
-
-    @GetMapping("/buscar-por-id-cliente/{idCliente}")
-    public Set<PerfilDTO> buscarPorIdCliente(@PathVariable UUID idCliente) {
-        return perfilService.buscarPorIdCliente(idCliente);
-    }
-
-    @GetMapping("/buscar-por-id-cliente-sistema/{idClienteSistema}")
-    public Set<PerfilDTO> buscarPorIdClienteSistema(@PathVariable UUID idClienteSistema) {
-        return perfilService.buscarPorIdClienteSistema(idClienteSistema);
-    }
 }

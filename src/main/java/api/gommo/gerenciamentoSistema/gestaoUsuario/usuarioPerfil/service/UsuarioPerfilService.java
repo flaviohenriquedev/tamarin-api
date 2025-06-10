@@ -1,5 +1,6 @@
 package api.gommo.gerenciamentoSistema.gestaoUsuario.usuarioPerfil.service;
 
+import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
 import api.gommo._root.comum.service.impl.DtoMapperImpl;
@@ -23,7 +24,7 @@ public class UsuarioPerfilService extends DefaultServiceImpl<UsuarioPerfil, Usua
     private ModelMapper modelMapper;
 
     @Override
-    protected JpaRepository<UsuarioPerfil, UUID> getRepository() {
+    protected DefaultRepository<UsuarioPerfil, UUID> getRepository() {
         return usuarioPerfilRepository;
     }
 

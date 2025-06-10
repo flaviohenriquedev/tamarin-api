@@ -1,6 +1,6 @@
 package api.gommo.departamentoPessoal.administracao.tipoContrato.model;
 
-import api.gommo._root.comum.model.EntidadeCliente;
+import api.gommo._root.comum.model.EntidadeTenant;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -14,6 +14,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tipo_contrato")
-public class TipoContrato extends EntidadeCliente {
+public class TipoContrato extends EntidadeTenant {
     private String descricao;
 }

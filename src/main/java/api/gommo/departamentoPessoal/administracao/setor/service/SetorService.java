@@ -1,5 +1,6 @@
 package api.gommo.departamentoPessoal.administracao.setor.service;
 
+import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
 import api.gommo._root.comum.service.impl.DtoMapperImpl;
@@ -23,7 +24,7 @@ public class SetorService extends DefaultServiceImpl<Setor, SetorDTO> {
     private ModelMapper modelMapper;
 
     @Override
-    protected JpaRepository<Setor, UUID> getRepository() {
+    protected DefaultRepository<Setor, UUID> getRepository() {
         return setorRepository;
     }
 

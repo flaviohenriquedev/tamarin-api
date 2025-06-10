@@ -1,5 +1,6 @@
 package api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.service;
 
+import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
 import api.gommo._root.comum.service.impl.DtoMapperImpl;
@@ -23,7 +24,7 @@ public class ColaboradorEnderecoService extends DefaultServiceImpl<ColaboradorEn
     private ModelMapper modelMapper;
 
     @Override
-    protected JpaRepository<ColaboradorEndereco, UUID> getRepository() {
+    protected DefaultRepository<ColaboradorEndereco, UUID> getRepository() {
         return colaboradorEnderecoRepository;
     }
 

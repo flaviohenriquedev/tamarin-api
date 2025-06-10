@@ -1,6 +1,6 @@
 package api.gommo.departamentoPessoal.administracao.cargaHoraria.model;
 
-import api.gommo._root.comum.model.EntidadeCliente;
+import api.gommo._root.comum.model.EntidadeTenant;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "carga_horaria")
-public class CargaHoraria extends EntidadeCliente {
+public class CargaHoraria extends EntidadeTenant {
 
     private Integer horaInicial;
     private Integer horaFinal;

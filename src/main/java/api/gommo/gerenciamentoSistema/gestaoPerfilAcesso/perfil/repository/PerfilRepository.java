@@ -11,9 +11,4 @@ import java.util.UUID;
 
 @Repository
 public interface PerfilRepository extends DefaultRepository<Perfil, UUID> {
-    @EntityGraph(attributePaths = "sistemas")
-    List<Perfil> findByClienteId(UUID clienteId);
-
-    @EntityGraph(attributePaths = "sistemas")
-    List<Perfil> findBySistemasClienteSistemaId(UUID sistemasClienteSistemaId);
 }

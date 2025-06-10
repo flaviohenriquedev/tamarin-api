@@ -1,6 +1,6 @@
 package api.gommo._root.comum.dto;
 
-import api.gommo._root.comum.enums.Status;
+import api.gommo._root.comum.enums.StatusENUM;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
@@ -16,5 +16,5 @@ public abstract class EntidadePadraoDTO {
     private UUID id;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private StatusENUM status;
 }

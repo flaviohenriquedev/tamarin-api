@@ -1,5 +1,6 @@
 package api.gommo.departamentoPessoal.administracao.tipoContrato.service;
 
+import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
 import api.gommo._root.comum.service.impl.DtoMapperImpl;
@@ -23,7 +24,7 @@ public class TipoContratoService extends DefaultServiceImpl<TipoContrato, TipoCo
     private ModelMapper modelMapper;
 
     @Override
-    protected JpaRepository<TipoContrato, UUID> getRepository() {
+    protected DefaultRepository<TipoContrato, UUID> getRepository() {
         return tipoContratoRepository;
     }
 

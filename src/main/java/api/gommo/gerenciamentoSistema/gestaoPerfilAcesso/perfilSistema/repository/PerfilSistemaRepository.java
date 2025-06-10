@@ -11,8 +11,6 @@ import java.util.UUID;
 
 @Repository
 public interface PerfilSistemaRepository extends DefaultRepository<PerfilSistema, UUID> {
-    List<PerfilSistema> findByClienteSistema_Id(UUID clienteSistemaId);
-
     @EntityGraph(attributePaths = "rotas")
     List<PerfilSistema> findByPerfilId(UUID perfilId);
 }

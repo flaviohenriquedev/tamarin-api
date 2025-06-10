@@ -1,6 +1,7 @@
 package api.gommo._root.comum.service.impl;
 
 import api.gommo._root.comum.dto.EntidadePadraoDTO;
+import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DefaultService;
 import api.gommo._root.comum.service.DtoMapper;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 public abstract class DefaultServiceImpl<E, D extends EntidadePadraoDTO> implements DefaultService<D> {
 
-    protected abstract JpaRepository<E, UUID> getRepository();
+    protected abstract DefaultRepository<E, UUID> getRepository();
 
     protected abstract DtoMapper<E, D> getMapper();
 

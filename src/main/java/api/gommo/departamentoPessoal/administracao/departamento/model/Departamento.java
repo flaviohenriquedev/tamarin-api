@@ -1,6 +1,6 @@
 package api.gommo.departamentoPessoal.administracao.departamento.model;
 
-import api.gommo._root.comum.model.EntidadeCliente;
+import api.gommo._root.comum.model.EntidadeTenant;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -14,6 +14,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "departamento")
-public class Departamento extends EntidadeCliente {
+public class Departamento extends EntidadeTenant {
     private String descricao;
 }

@@ -1,6 +1,6 @@
 package api.gommo._root.comum.model;
 
-import api.gommo._root.comum.enums.Status;
+import api.gommo._root.comum.enums.StatusENUM;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,5 +17,5 @@ public abstract class EntidadePadrao {
     private UUID id;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private StatusENUM status;
 }

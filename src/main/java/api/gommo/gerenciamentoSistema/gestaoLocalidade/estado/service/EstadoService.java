@@ -1,5 +1,6 @@
 package api.gommo.gerenciamentoSistema.gestaoLocalidade.estado.service;
 
+import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
 import api.gommo._root.comum.service.impl.DtoMapperImpl;
@@ -23,7 +24,7 @@ public class EstadoService extends DefaultServiceImpl<Estado, EstadoDTO> {
     private ModelMapper modelMapper;
 
     @Override
-    protected JpaRepository<Estado, UUID> getRepository() {
+    protected DefaultRepository<Estado, UUID> getRepository() {
         return estadoRepository;
     }
 

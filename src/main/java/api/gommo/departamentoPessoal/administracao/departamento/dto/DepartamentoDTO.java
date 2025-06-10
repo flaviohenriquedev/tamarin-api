@@ -1,6 +1,6 @@
 package api.gommo.departamentoPessoal.administracao.departamento.dto;
 
-import api.gommo._root.comum.dto.EntidadeClienteDTO;
+import api.gommo._root.comum.dto.EntidadeTenantDTO;
 import lombok.*;
 
 @Getter
@@ -8,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class DepartamentoDTO extends EntidadeClienteDTO {
+public class DepartamentoDTO extends EntidadeTenantDTO {
     private String descricao;
 }

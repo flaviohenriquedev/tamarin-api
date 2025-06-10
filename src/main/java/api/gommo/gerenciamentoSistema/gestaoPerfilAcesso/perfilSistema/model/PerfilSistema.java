@@ -1,10 +1,10 @@
 package api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistema.model;
 
+import api.gommo._root.comum.enums.SistemaENUM;
 import api.gommo._root.comum.model.EntidadePadrao;
 import api.gommo._root.comum.serializer.impl.IDSerializer;
 import api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfil.model.Perfil;
 import api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistemaModulo.model.PerfilSistemaModulo;
-import api.gommo.gerenciamentoSistema.gestaoCliente.clienteSistema.model.ClienteSistema;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,9 +27,8 @@ public class PerfilSistema extends EntidadePadrao {
     @JoinColumn(name = "id_perfil")
     private Perfil perfil;
 
-    @ManyToOne
-    @JoinColumn(name = "id_cliente_sistema")
-    private ClienteSistema clienteSistema;
+    @Enumerated(EnumType.STRING)
+    private SistemaENUM keySistema;
 
     @OneToMany(mappedBy = "perfilSistema", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PerfilSistemaModulo> rotas;

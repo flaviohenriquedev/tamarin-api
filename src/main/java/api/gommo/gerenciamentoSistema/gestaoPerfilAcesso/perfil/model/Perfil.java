@@ -1,6 +1,6 @@
 package api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfil.model;
 
-import api.gommo._root.comum.model.EntidadeCliente;
+import api.gommo._root.comum.model.EntidadeTenant;
 import api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistema.model.PerfilSistema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "perfil")
-public class Perfil extends EntidadeCliente {
+public class Perfil extends EntidadeTenant {
 
     @Column(nullable = false)
     String descricao;

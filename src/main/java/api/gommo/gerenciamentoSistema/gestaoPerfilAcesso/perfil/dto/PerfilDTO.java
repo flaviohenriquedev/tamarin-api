@@ -1,6 +1,6 @@
 package api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfil.dto;
 
-import api.gommo._root.comum.dto.EntidadeClienteDTO;
+import api.gommo._root.comum.dto.EntidadeTenantDTO;
 import api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfilSistema.dto.PerfilSistemaDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PerfilDTO extends EntidadeClienteDTO {
+public class PerfilDTO extends EntidadeTenantDTO {
     private String descricao;
     private List<PerfilSistemaDTO> sistemas;
 

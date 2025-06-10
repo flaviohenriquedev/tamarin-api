@@ -1,5 +1,6 @@
 package api.gommo.departamentoPessoal.administracao.departamento.service;
 
+import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
 import api.gommo._root.comum.service.impl.DtoMapperImpl;
@@ -23,7 +24,7 @@ public class DepartamentoService extends DefaultServiceImpl<Departamento, Depart
     private ModelMapper modelMapper;
 
     @Override
-    protected JpaRepository<Departamento, UUID> getRepository() {
+    protected DefaultRepository<Departamento, UUID> getRepository() {
         return departamentoRepository;
     }
 

@@ -22,7 +22,7 @@ public class UsuarioPerfil extends EntidadeAuditavel {
     private Usuario usuario;
 
     @JoinColumn(name = "id_perfil")
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Perfil perfil;
 
 }

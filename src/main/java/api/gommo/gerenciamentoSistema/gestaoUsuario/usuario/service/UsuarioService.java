@@ -1,5 +1,6 @@
 package api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.service;
 
+import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
 import api.gommo._root.comum.service.impl.DtoMapperImpl;
@@ -21,7 +22,7 @@ import java.util.UUID;
 public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
 
     @Autowired
-    private UsuarioRepository repository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private PerfilService perfilService;
@@ -33,8 +34,8 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    protected JpaRepository<Usuario, UUID> getRepository() {
-        return repository;
+    protected DefaultRepository<Usuario, UUID> getRepository() {
+        return usuarioRepository;
     }
 
     @Override
@@ -42,8 +43,12 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
         return new DtoMapperImpl<>(modelMapper, Usuario.class, UsuarioDTO.class);
     }
 
+    public boolean possuiAcessoAoCliente(UUID idUsuario, UUID idCliente) {
+        return usuarioRepository.possuiAcessoAoCliente(idUsuario, idCliente);
+    }
+
     public boolean existePorEmail(String email) {
-        return repository.existsByEmail(email);
+        return usuarioRepository.existsByEmail(email);
     }
 
     public void createUserAdmin(String email) {
@@ -57,7 +62,7 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
     }
 
     public UsuarioDTO buscarUsuarioPorEmail(String email) {
-        return getMapper().toDto(repository.findByEmail(email).orElse(new Usuario()));
+        return getMapper().toDto(usuarioRepository.findByEmail(email).orElse(new Usuario()));
     }
 
     @Override
@@ -72,7 +77,7 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
             });
         }
 
-        Usuario usuario = repository.save(getMapper().toEntity(dto));
+        Usuario usuario = usuarioRepository.save(getMapper().toEntity(dto));
         return getMapper().toDto(usuario);
     }
 
@@ -80,7 +85,7 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
     public void validacoes(UsuarioDTO dto) {
         boolean novoUsuario = dto.getId() == null;
 
-        Optional<Usuario> usuarioExistente = repository.findByEmail(dto.getEmail());
+        Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(dto.getEmail());
 
         if (novoUsuario && usuarioExistente.isPresent()) {
             throw new IllegalArgumentException("E-mail já cadastrado.");
