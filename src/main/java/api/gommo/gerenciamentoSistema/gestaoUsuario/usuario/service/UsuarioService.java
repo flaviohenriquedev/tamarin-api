@@ -4,14 +4,16 @@ import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
 import api.gommo._root.comum.service.impl.DtoMapperImpl;
+import api.gommo.gerenciamentoSistema.gestaoEmpresa.empresa.dto.EmpresaDTO;
+import api.gommo.gerenciamentoSistema.gestaoEmpresa.empresa.service.EmpresaService;
 import api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfil.dto.PerfilDTO;
 import api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfil.service.PerfilService;
 import api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.dto.UsuarioDTO;
 import api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.model.Usuario;
 import api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.repository.UsuarioRepository;
+import api.gommo.gerenciamentoSistema.gestaoUsuario.usuarioPerfil.dto.UsuarioPerfilDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,9 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmpresaService empresaService;
 
     @Override
     protected DefaultRepository<Usuario, UUID> getRepository() {
@@ -62,7 +67,17 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
     }
 
     public UsuarioDTO buscarUsuarioPorEmail(String email) {
-        return getMapper().toDto(usuarioRepository.findByEmail(email).orElse(new Usuario()));
+        UsuarioDTO usuarioDTO = getMapper().toDto(usuarioRepository.findByEmail(email).orElse(new Usuario()));
+
+        if (!usuarioDTO.getPerfis().isEmpty()) {
+            usuarioDTO.getPerfis().stream().map(UsuarioPerfilDTO::getPerfil).toList()
+                    .forEach(perfil -> {
+                        EmpresaDTO empresaDTO = empresaService.buscarPorId(perfil.getEmpresaTenant().getId());
+                        usuarioDTO.getEmpresas().add(empresaDTO);
+                    });
+        }
+
+        return usuarioDTO;
     }
 
     @Override

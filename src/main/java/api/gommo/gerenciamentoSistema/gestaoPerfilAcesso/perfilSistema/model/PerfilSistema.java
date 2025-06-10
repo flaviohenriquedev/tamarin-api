@@ -28,6 +28,7 @@ public class PerfilSistema extends EntidadePadrao {
     private Perfil perfil;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "key_sistema")
     private SistemaENUM keySistema;
 
     @OneToMany(mappedBy = "perfilSistema", cascade = CascadeType.ALL, orphanRemoval = true)

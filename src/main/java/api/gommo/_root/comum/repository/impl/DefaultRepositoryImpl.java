@@ -24,9 +24,9 @@ public class DefaultRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> imp
     }
 
     private void garantirFiltroTenant() {
-        if (TenantContext.isUsuarioMaster()) {
-            return; // não aplica filtro para usuário master
-        }
+//        if (TenantContext.isUsuarioMaster()) {
+//            return; // não aplica filtro para usuário master
+//        }
 
         UUID clienteId = TenantContext.getClienteId();
         if (clienteId == null) return;
@@ -65,10 +65,10 @@ public class DefaultRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> imp
 
     private void setTenantIfApplicable(Object entity) {
         UUID clienteId = TenantContext.getClienteId();
-        if (entity instanceof EntidadeTenant entidadeCliente && clienteId != null) {
+        if (entity instanceof EntidadeTenant entidadeTenant && clienteId != null) {
             Empresa empresa = new Empresa();
             empresa.setId(clienteId);
-            entidadeCliente.setEmpresa(empresa);
+            entidadeTenant.setEmpresaTenant(empresa);
         }
     }
 }

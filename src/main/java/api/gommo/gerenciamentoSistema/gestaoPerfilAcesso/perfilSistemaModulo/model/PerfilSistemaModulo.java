@@ -30,5 +30,6 @@ public class PerfilSistemaModulo extends EntidadePadrao {
     @Enumerated(EnumType.STRING)
     private ModuloENUM modulo;
 
+    @Enumerated(EnumType.STRING)
     private List<FuncionalidadeENUM> funcionalidades;
 }

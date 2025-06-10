@@ -18,7 +18,7 @@ public interface UsuarioRepository extends DefaultRepository<Usuario, UUID> {
                 select count(up) > 0
                 from UsuarioPerfil up
                 where up.usuario.id = :idUsuario
-                  and up.perfil.empresa.id = :idCliente
+                  and up.perfil.empresaTenant.id = :idCliente
             """)
     boolean possuiAcessoAoCliente(UUID idUsuario, UUID idCliente);
 }

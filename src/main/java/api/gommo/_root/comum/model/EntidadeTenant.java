@@ -22,5 +22,5 @@ public abstract class EntidadeTenant extends EntidadeAuditavel {
 
     @JoinColumn(name = "tenant_id", nullable = false)
     @ManyToOne
-    private Empresa empresa;
+    private Empresa empresaTenant;
 }

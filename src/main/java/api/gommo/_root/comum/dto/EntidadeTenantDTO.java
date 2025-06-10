@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class EntidadeTenantDTO extends EntidadeAuditavelDTO {
-    private EmpresaDTO cliente;
+    private EmpresaDTO empresaTenant;
 }
