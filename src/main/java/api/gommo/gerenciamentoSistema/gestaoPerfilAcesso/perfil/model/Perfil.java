@@ -1,7 +1,6 @@
 package api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfil.model;
 
-import api.gommo._root.comum.enums.SistemaENUM;
-import api.gommo._root.comum.model.EntidadeTenant;
+import api.gommo._root.comum.model.EntidadeSistema;
 import api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfilModulo.model.PerfilModulo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,14 +16,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "perfil")
-public class Perfil extends EntidadeTenant {
+public class Perfil extends EntidadeSistema {
 
     @Column(nullable = false)
     private String descricao;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sistema")
-    private SistemaENUM sistema;
 
     @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PerfilModulo> perfilModulos;

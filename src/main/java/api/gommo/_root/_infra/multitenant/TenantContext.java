@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public class TenantContext {
     private static final ThreadLocal<UUID> empresaId = new ThreadLocal<>();
+    private static final ThreadLocal<String> sistemaSelecionado = new ThreadLocal<>();
     private static final ThreadLocal<Boolean> usuarioMaster = new ThreadLocal<>();
 
     public static void setEmpresaId(UUID id) {
@@ -12,6 +13,14 @@ public class TenantContext {
 
     public static UUID getEmpresaId() {
         return empresaId.get();
+    }
+
+    public static void setSistemaSelecionado(String sistema) {
+        sistemaSelecionado.set(sistema);
+    }
+
+    public static String getSistemaSelecionado() {
+        return sistemaSelecionado.get();
     }
 
     public static void setUsuarioMaster(Boolean isMaster) {
@@ -24,6 +33,7 @@ public class TenantContext {
 
     public static void clear() {
         empresaId.remove();
+        sistemaSelecionado.remove();
         usuarioMaster.remove();
     }
 }

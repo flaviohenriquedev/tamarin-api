@@ -1,12 +1,13 @@
 package api.gommo._root.comum.repository.impl;
 
 import api.gommo._root._infra.multitenant.TenantContext;
+import api.gommo._root.comum.enums.SistemaENUM;
+import api.gommo._root.comum.model.EntidadeSistema;
 import api.gommo._root.comum.model.EntidadeTenant;
 import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo.gerenciamentoSistema.gestaoEmpresa.empresa.model.Empresa;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import lombok.Getter;
 import org.hibernate.Session;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
@@ -19,7 +20,11 @@ public class DefaultRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> imp
     private final EntityManager entityManager;
 
     public UUID getEmpresaId() {
-        return TenantContext.getEmpresaId(); // Puxa dinamicamente
+        return TenantContext.getEmpresaId();
+    }
+
+    public String getSistema() {
+        return TenantContext.getSistemaSelecionado();
     }
 
     public DefaultRepositoryImpl(JpaEntityInformation<T, ?> entityInformation,
@@ -28,11 +33,14 @@ public class DefaultRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> imp
         this.entityManager = entityManager;
     }
 
-    private void garantirFiltroTenant() {
-        if (getEmpresaId() == null) return;
+    private void garantirFiltros() {
+        if (getEmpresaId() == null || getSistema() == null) return;
         Session session = entityManager.unwrap(Session.class);
         if (session.getEnabledFilter("tenantFilter") == null) {
             session.enableFilter("tenantFilter").setParameter("tenantId", getEmpresaId());
+        }
+        if (session.getEnabledFilter("sistemaFilter") == null) {
+            session.enableFilter("sistemaFilter").setParameter("sistema", getSistema());
         }
     }
 
@@ -52,18 +60,23 @@ public class DefaultRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> imp
 
     @Override
     public List<T> findAll() {
-        garantirFiltroTenant();
+        garantirFiltros();
         return super.findAll();
     }
 
     @Override
     public java.util.Optional<T> findById(ID id) {
-        garantirFiltroTenant();
+        garantirFiltros();
         return super.findById(id);
     }
 
     private void setTenantIfApplicable(Object entity) {
-        if (entity instanceof EntidadeTenant entidadeTenant && getEmpresaId() != null) {
+        if (entity instanceof EntidadeSistema entidadeSistema && getSistema() != null) {
+            entidadeSistema.setSistema(SistemaENUM.valueOf(getSistema()));
+            Empresa empresa = new Empresa();
+            empresa.setId(getEmpresaId());
+            entidadeSistema.setEmpresaTenant(empresa);
+        } else if (entity instanceof EntidadeTenant entidadeTenant && getEmpresaId() != null) {
             Empresa empresa = new Empresa();
             empresa.setId(getEmpresaId());
             entidadeTenant.setEmpresaTenant(empresa);
