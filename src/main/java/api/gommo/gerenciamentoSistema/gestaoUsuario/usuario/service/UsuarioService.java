@@ -1,5 +1,8 @@
 package api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.service;
 
+import api.gommo._root.comum.enums.FuncionalidadeENUM;
+import api.gommo._root.comum.enums.ModuloENUM;
+import api.gommo._root.comum.enums.SistemaENUM;
 import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
@@ -8,6 +11,8 @@ import api.gommo.gerenciamentoSistema.gestaoEmpresa.empresa.dto.EmpresaDTO;
 import api.gommo.gerenciamentoSistema.gestaoEmpresa.empresa.service.EmpresaService;
 import api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfil.dto.PerfilDTO;
 import api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfil.service.PerfilService;
+import api.gommo.gerenciamentoSistema.gestaoPerfilAcesso.perfilModulo.dto.PerfilModuloDTO;
+import api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.dto.DadosAcessoDTO;
 import api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.dto.UsuarioDTO;
 import api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.model.Usuario;
 import api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.repository.UsuarioRepository;
@@ -17,8 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
@@ -66,20 +70,6 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
         this.salvar(usuario);
     }
 
-    public UsuarioDTO buscarUsuarioPorEmail(String email) {
-        UsuarioDTO usuarioDTO = getMapper().toDto(usuarioRepository.findByEmail(email).orElse(new Usuario()));
-
-        if (!usuarioDTO.getPerfis().isEmpty()) {
-            usuarioDTO.getPerfis().stream().map(UsuarioPerfilDTO::getPerfil).toList()
-                    .forEach(perfil -> {
-                        EmpresaDTO empresaDTO = empresaService.buscarPorId(perfil.getEmpresaTenant().getId());
-                        usuarioDTO.getEmpresas().add(empresaDTO);
-                    });
-        }
-
-        return usuarioDTO;
-    }
-
     @Override
     public UsuarioDTO salvar(UsuarioDTO dto) {
         this.validacoes(dto);
@@ -96,8 +86,7 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
         return getMapper().toDto(usuario);
     }
 
-
-    public void validacoes(UsuarioDTO dto) {
+    private void validacoes(UsuarioDTO dto) {
         boolean novoUsuario = dto.getId() == null;
 
         Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(dto.getEmail());
@@ -114,5 +103,101 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
             String digitosCPF = dto.getCpf().substring(0, 5);
             dto.setSenha(passwordEncoder.encode(digitosCPF));
         }
+    }
+
+    public UsuarioDTO buscarUsuarioPorEmail(String email) {
+        UsuarioDTO usuarioDTO = getMapper()
+                .toDto(usuarioRepository.findByEmail(email).orElse(new Usuario()));
+
+        if (usuarioDTO.getUsuarioMaster()) {
+            usuarioDTO.setDadosAcesso(this.getDadosAcessosAdmin());
+        } else {
+            // Se não tiver perfis, já retorna vazio
+            if (usuarioDTO.getPerfis().isEmpty()) return usuarioDTO;
+
+            // Map intermediário: (EmpresaId, SistemaENUM) → DadosAcessoDTO
+            Map<String, DadosAcessoDTO> acessoMap = new HashMap<>();
+
+            for (UsuarioPerfilDTO up : usuarioDTO.getPerfis()) {
+                PerfilDTO perfil = up.getPerfil();
+                var empresa = perfil.getEmpresaTenant();       // suposto EmpresaDTO
+                var sistema = perfil.getSistema();             // SistemaENUM
+                String key = empresa.getId().toString() + "|" + sistema.name();
+
+                DadosAcessoDTO dados = acessoMap.computeIfAbsent(key, k -> DadosAcessoDTO.builder()
+                        .empresa(empresa)
+                        .sistemas(new ArrayList<>())
+                        .build());
+
+                // Encontra o sistema dentro do DadosAcessoDTO atual
+                var sistemaDTO = dados.getSistemas().stream()
+                        .filter(ds -> ds.getSistema() == sistema)
+                        .findFirst()
+                        .orElseGet(() -> {
+                            var novo = DadosAcessoDTO.DadosAcessoSistemaDTO.builder()
+                                    .sistema(sistema)
+                                    .modulos(new ArrayList<>())
+                                    .build();
+                            dados.getSistemas().add(novo);
+                            return novo;
+                        });
+
+                // Processa módulos do perfil
+                for (PerfilModuloDTO pm : perfil.getPerfilModulos()) {
+                    var modulo = pm.getModulo();
+                    // acha ou cria módulo dentro do sistema
+                    var modDTO = sistemaDTO.getModulos().stream()
+                            .filter(m -> m.getModulo() == modulo)
+                            .findFirst()
+                            .orElseGet(() -> {
+                                var novoMod = DadosAcessoDTO.DadosAcessoSistemaModuloDTO.builder()
+                                        .modulo(modulo)
+                                        .funcionalidades(new ArrayList<>())
+                                        .build();
+                                sistemaDTO.getModulos().add(novoMod);
+                                return novoMod;
+                            });
+
+                    // Junta funcionalidades, evitando duplicata
+                    for (var func : pm.getFuncionalidades()) {
+                        if (!modDTO.getFuncionalidades().contains(func)) {
+                            modDTO.getFuncionalidades().add(func);
+                        }
+                    }
+                }
+            }
+
+            // Preenche no usuário
+            usuarioDTO.setDadosAcesso(new ArrayList<>(acessoMap.values()));
+        }
+
+        return usuarioDTO;
+    }
+
+    private List<DadosAcessoDTO> getDadosAcessosAdmin() {
+        List<EmpresaDTO> empresas = empresaService.listar();
+        List<DadosAcessoDTO> dadosAcessosList = new ArrayList<>();
+        // para cada empresa
+        if (!empresas.isEmpty()) {
+            empresas.forEach(empresa -> {
+                DadosAcessoDTO dadosAcesso = new DadosAcessoDTO();
+                dadosAcesso.setEmpresa(empresa);
+
+                // cada sistema da empresa
+                if (!empresa.getSistemas().isEmpty()) {
+                    dadosAcesso.setSistemas(new ArrayList<>());
+                    empresa.getSistemas().forEach(empresaSistema -> {
+                        dadosAcesso.getSistemas().add(
+                                DadosAcessoDTO.DadosAcessoSistemaDTO
+                                        .builder()
+                                        .sistema(empresaSistema.getKeySistema())
+                                        .build()
+                        );
+                    });
+                }
+                dadosAcessosList.add(dadosAcesso);
+            });
+        }
+        return dadosAcessosList;
     }
 }
