@@ -69,7 +69,10 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
 
     @Override
     public List<UsuarioDTO> listar() {
-        return getMapper().toDtoList(usuarioRepository.listarUsuarios(usuarioRepository.getEmpresaId()));
+        return getMapper().toDtoList(usuarioRepository.listarUsuarios(
+                usuarioRepository.getEmpresaId(),
+                usuarioRepository.getSistema()
+                ));
     }
 
     @Override
@@ -104,6 +107,10 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
         if (novoUsuario) {
             String digitosCPF = dto.getCpf().substring(0, 5);
             dto.setSenha(passwordEncoder.encode(digitosCPF));
+        }
+
+        if (!novoUsuario && Objects.isNull(dto.getSenha()) && usuarioExistente.isPresent()) {
+            dto.setSenha(usuarioExistente.get().getSenha());
         }
     }
 

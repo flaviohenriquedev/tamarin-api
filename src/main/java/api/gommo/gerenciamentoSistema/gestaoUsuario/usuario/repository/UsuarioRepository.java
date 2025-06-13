@@ -1,5 +1,6 @@
 package api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.repository;
 
+import api.gommo._root.comum.enums.SistemaENUM;
 import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.model.Usuario;
 import org.springframework.data.jpa.repository.Query;
@@ -28,6 +29,7 @@ public interface UsuarioRepository extends DefaultRepository<Usuario, UUID> {
                 JOIN u.perfis up
                 JOIN up.perfil p
                 WHERE p.empresaTenant.id = :empresaId
+                            AND p.sistema = :sistema
             """)
-    List<Usuario> listarUsuarios(UUID empresaId);
+    List<Usuario> listarUsuarios(UUID empresaId, SistemaENUM sistema);
 }

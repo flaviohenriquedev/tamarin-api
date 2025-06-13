@@ -23,8 +23,8 @@ public class DefaultRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> imp
         return TenantContext.getEmpresaId();
     }
 
-    public String getSistema() {
-        return TenantContext.getSistemaSelecionado();
+    public SistemaENUM getSistema() {
+        return SistemaENUM.valueOf(TenantContext.getSistemaSelecionado());
     }
 
     public DefaultRepositoryImpl(JpaEntityInformation<T, ?> entityInformation,
@@ -40,7 +40,7 @@ public class DefaultRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> imp
             session.enableFilter("tenantFilter").setParameter("tenantId", getEmpresaId());
         }
         if (session.getEnabledFilter("sistemaFilter") == null) {
-            session.enableFilter("sistemaFilter").setParameter("sistema", getSistema());
+            session.enableFilter("sistemaFilter").setParameter("sistema", getSistema().toString());
         }
     }
 
@@ -72,7 +72,7 @@ public class DefaultRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> imp
 
     private void setTenantIfApplicable(Object entity) {
         if (entity instanceof EntidadeSistema entidadeSistema && getSistema() != null) {
-            entidadeSistema.setSistema(SistemaENUM.valueOf(getSistema()));
+            entidadeSistema.setSistema(getSistema());
             Empresa empresa = new Empresa();
             empresa.setId(getEmpresaId());
             entidadeSistema.setEmpresaTenant(empresa);
