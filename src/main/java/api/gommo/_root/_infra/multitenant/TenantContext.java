@@ -3,15 +3,15 @@ package api.gommo._root._infra.multitenant;
 import java.util.UUID;
 
 public class TenantContext {
-    private static final ThreadLocal<UUID> clienteId = new ThreadLocal<>();
+    private static final ThreadLocal<UUID> empresaId = new ThreadLocal<>();
     private static final ThreadLocal<Boolean> usuarioMaster = new ThreadLocal<>();
 
-    public static void setClienteId(UUID id) {
-        clienteId.set(id);
+    public static void setEmpresaId(UUID id) {
+        empresaId.set(id);
     }
 
-    public static UUID getClienteId() {
-        return clienteId.get();
+    public static UUID getEmpresaId() {
+        return empresaId.get();
     }
 
     public static void setUsuarioMaster(Boolean isMaster) {
@@ -23,7 +23,7 @@ public class TenantContext {
     }
 
     public static void clear() {
-        clienteId.remove();
+        empresaId.remove();
         usuarioMaster.remove();
     }
 }

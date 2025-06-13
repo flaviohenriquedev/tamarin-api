@@ -1,8 +1,5 @@
 package api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.service;
 
-import api.gommo._root.comum.enums.FuncionalidadeENUM;
-import api.gommo._root.comum.enums.ModuloENUM;
-import api.gommo._root.comum.enums.SistemaENUM;
 import api.gommo._root.comum.repository.DefaultRepository;
 import api.gommo._root.comum.service.DtoMapper;
 import api.gommo._root.comum.service.impl.DefaultServiceImpl;
@@ -52,8 +49,8 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
         return new DtoMapperImpl<>(modelMapper, Usuario.class, UsuarioDTO.class);
     }
 
-    public boolean possuiAcessoAoCliente(UUID idUsuario, UUID idCliente) {
-        return usuarioRepository.possuiAcessoAoCliente(idUsuario, idCliente);
+    public boolean possuiAcessoAEmpresa(UUID idUsuario, UUID idEmpresa) {
+        return usuarioRepository.possuiAcessoAEmpresa(idUsuario, idEmpresa);
     }
 
     public boolean existePorEmail(String email) {
@@ -68,6 +65,11 @@ public class UsuarioService extends DefaultServiceImpl<Usuario, UsuarioDTO> {
         usuario.setSenha(passwordEncoder.encode("g0mm0"));
         usuario.setUsuarioMaster(true);
         this.salvar(usuario);
+    }
+
+    @Override
+    public List<UsuarioDTO> listar() {
+        return getMapper().toDtoList(usuarioRepository.listarUsuarios(usuarioRepository.getEmpresaId()));
     }
 
     @Override

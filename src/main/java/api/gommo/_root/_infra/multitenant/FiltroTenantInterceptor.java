@@ -25,22 +25,22 @@ public class FiltroTenantInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws AccessDeniedException {
-        String clienteIdStr = request.getHeader("X-Empresa-Id");
-        if (clienteIdStr != null) {
-            UUID clienteId = UUID.fromString(clienteIdStr);
+        String empresaIdStr = request.getHeader("X-Empresa-Id");
+        if (empresaIdStr != null) {
+            UUID empresaId = UUID.fromString(empresaIdStr);
             var auth = SecurityContextHolder.getContext().getAuthentication();
 
             if (auth != null && auth.getPrincipal() instanceof Usuario usuario) {
                 TenantContext.setUsuarioMaster(usuario.getUsuarioMaster());
 
                 if (!usuario.getUsuarioMaster() &&
-                    !usuarioService.possuiAcessoAoCliente(usuario.getId(), clienteId)) {
+                    !usuarioService.possuiAcessoAEmpresa(usuario.getId(), empresaId)) {
                     throw new AccessDeniedException("Acesso negado ao empresa informado.");
                 }
 
-                TenantContext.setClienteId(clienteId); // Salva clienteId no contexto da requisição
+                TenantContext.setEmpresaId(empresaId); // Salva empresaId no contexto da requisição
                 Session session = entityManager.unwrap(Session.class);
-                session.enableFilter("tenantFilter").setParameter("tenantId", clienteId);
+                session.enableFilter("tenantFilter").setParameter("tenantId", empresaId);
             }
         }
         return true;

@@ -5,6 +5,7 @@ import api.gommo.gerenciamentoSistema.gestaoUsuario.usuario.model.Usuario;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,7 +19,15 @@ public interface UsuarioRepository extends DefaultRepository<Usuario, UUID> {
                 select count(up) > 0
                 from UsuarioPerfil up
                 where up.usuario.id = :idUsuario
-                  and up.perfil.empresaTenant.id = :idCliente
+                  and up.perfil.empresaTenant.id = :idEmpresa
             """)
-    boolean possuiAcessoAoCliente(UUID idUsuario, UUID idCliente);
+    boolean possuiAcessoAEmpresa(UUID idUsuario, UUID idEmpresa);
+
+    @Query("""
+                SELECT u FROM Usuario u
+                JOIN u.perfis up
+                JOIN up.perfil p
+                WHERE p.empresaTenant.id = :empresaId
+            """)
+    List<Usuario> listarUsuarios(UUID empresaId);
 }
