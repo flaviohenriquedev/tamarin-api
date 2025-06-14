@@ -41,4 +41,8 @@ public class ColaboradorService extends DefaultServiceImpl<Colaborador, Colabora
         List<Colaborador> result = colaboradorRepository.findByStatusColaborador(StatusColaboradorENUM.ATIVO);
         return new HashSet<>(getMapper().toDtoList(result));
     }
+
+    public Integer getProximaMatricula() {
+        return colaboradorRepository.getProximaMatricula();
+    }
 }

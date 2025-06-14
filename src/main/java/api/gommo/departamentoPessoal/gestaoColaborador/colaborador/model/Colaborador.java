@@ -21,6 +21,9 @@ import java.util.List;
 @Table(name = "colaborador")
 public class Colaborador extends EntidadeTenant {
 
+    @Column(nullable = false, unique = true)
+    private Integer matricula;
+
     @Column(name = "nome_completo")
     private String nomeCompleto;
 

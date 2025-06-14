@@ -16,6 +16,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 public class ColaboradorDTO extends EntidadeTenantDTO {
+    private Integer matricula;
     private String nomeCompleto;
     private String cpf;
     private Date dataNascimento;

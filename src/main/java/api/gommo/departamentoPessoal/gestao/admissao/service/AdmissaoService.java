@@ -54,6 +54,7 @@ public class AdmissaoService extends DefaultServiceImpl<Admissao, AdmissaoDTO> {
     public AdmissaoDTO salvar(AdmissaoDTO admissaoDTO) {
 
         ColaboradorDTO colaboradorDTO = getColaboradorDTO(admissaoDTO);
+        colaboradorDTO.setMatricula(colaboradorService.getProximaMatricula());
         ColaboradorDTO colaboradorDTOSalvo = colaboradorService.salvar(colaboradorDTO);
 
         ColaboradorEnderecoDTO colaboradorEnderecoDTO = getColaboradorEnderecoDTO(admissaoDTO, colaboradorDTOSalvo);
