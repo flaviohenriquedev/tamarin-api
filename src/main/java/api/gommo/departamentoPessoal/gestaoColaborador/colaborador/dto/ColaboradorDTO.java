@@ -6,6 +6,7 @@ import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.dto.Cola
 import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.dto.ColaboradorEnderecoDTO;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +20,8 @@ public class ColaboradorDTO extends EntidadeTenantDTO {
     private Integer matricula;
     private String nomeCompleto;
     private String cpf;
-    private Date dataNascimento;
+    private String rg;
+    private LocalDate dataNascimento;
     private String nascionalidade;
     private String nomeMae;
     private StatusColaboradorENUM statusColaborador;

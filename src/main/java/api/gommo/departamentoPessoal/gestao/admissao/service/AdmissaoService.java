@@ -16,7 +16,6 @@ import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.dto.C
 import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.service.ColaboradorEnderecoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -82,6 +81,7 @@ public class AdmissaoService extends DefaultServiceImpl<Admissao, AdmissaoDTO> {
         ColaboradorDTO colaboradorDTO = new ColaboradorDTO();
         colaboradorDTO.setNomeCompleto(admissaoDTO.getNomeCompleto());
         colaboradorDTO.setCpf(admissaoDTO.getCpf());
+        colaboradorDTO.setRg(admissaoDTO.getRg());
         colaboradorDTO.setDataNascimento(admissaoDTO.getDataNascimento());
         colaboradorDTO.setNascionalidade(admissaoDTO.getNascionalidade());
         colaboradorDTO.setNomeMae(admissaoDTO.getNomeMae());

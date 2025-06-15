@@ -28,8 +28,10 @@ public class Colaborador extends EntidadeTenant {
     private String nomeCompleto;
 
     private String cpf;
+    private String rg;
 
     @Column(name = "data_nascimento")
+    @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
     private String nascionalidade;

@@ -7,10 +7,13 @@ import api.gommo.departamentoPessoal.administracao.departamento.dto.Departamento
 import api.gommo.departamentoPessoal.administracao.tipoContrato.dto.TipoContratoDTO;
 import api.gommo.gerenciamentoSistema.gestaoLocalidade.cidade.dto.CidadeDTO;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.dto.ColaboradorDTO;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -21,7 +24,9 @@ import java.util.Date;
 public class AdmissaoDTO extends EntidadeTenantDTO {
     private String nomeCompleto;
     private String cpf;
-    private Date dataNascimento;
+    private String rg;
+
+    private LocalDate dataNascimento;
     private String nascionalidade;
     private String nomeMae;
     private String rua;
@@ -30,11 +35,17 @@ public class AdmissaoDTO extends EntidadeTenantDTO {
     private String numero;
     private String bairro;
     public BigDecimal salario;
-    public Timestamp dataAdmissao;
+
+    public LocalDate  dataAdmissao;
     private CidadeDTO cidade;
     private CargoDTO cargo;
     private TipoContratoDTO tipoContrato;
     private CargaHorariaDTO cargaHoraria;
     private DepartamentoDTO departamento;
     private ColaboradorDTO colaborador;
+
+    private Integer quantidadeDiasExperiencia;
+    private LocalDate dataExperiencia;
+    private Integer quantidadeDiasProrrogacao;
+    private LocalDate dataProrrogacao;
 }

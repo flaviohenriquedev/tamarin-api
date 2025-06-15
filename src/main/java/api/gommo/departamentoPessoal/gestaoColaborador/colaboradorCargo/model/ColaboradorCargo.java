@@ -27,9 +27,11 @@ public class ColaboradorCargo extends EntidadePadrao {
     private Colaborador colaborador;
 
     @Column(name = "vigencia_inicial")
+    @Temporal(TemporalType.DATE)
     private Date vigenciaInicial;
 
     @Column(name = "vigencia_final")
+    @Temporal(TemporalType.DATE)
     private Date vigenciaFinal;
 
     @ManyToOne(fetch = FetchType.LAZY)
