@@ -8,21 +8,31 @@ import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.dto.Colaborad
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.enums.StatusColaboradorENUM;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.model.Colaborador;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.repository.ColaboradorRepository;
+import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.dto.ColaboradorCargoDTO;
+import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.service.ColaboradorCargoService;
+import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.dto.ColaboradorEnderecoDTO;
+import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.model.ColaboradorEndereco;
+import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.service.ColaboradorEnderecoService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.authorization.method.AuthorizeReturnObject;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ColaboradorService extends DefaultServiceImpl<Colaborador, ColaboradorDTO> {
 
     @Autowired
     private ColaboradorRepository colaboradorRepository;
+
+    @Autowired
+    private ColaboradorEnderecoService colaboradorEnderecoService;
+
+    @Autowired
+    private ColaboradorCargoService colaboradorCargoService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -35,6 +45,43 @@ public class ColaboradorService extends DefaultServiceImpl<Colaborador, Colabora
     @Override
     protected DtoMapper<Colaborador, ColaboradorDTO> getMapper() {
         return new DtoMapperImpl<>(modelMapper, Colaborador.class, ColaboradorDTO.class);
+    }
+
+    @Override
+    public ColaboradorDTO salvar(ColaboradorDTO dto) {
+        if (dto.isNew()) {
+            dto.setMatricula(this.getProximaMatricula());
+            dto.setStatusColaborador(StatusColaboradorENUM.ATIVO);
+        }
+        ColaboradorDTO colaboradorSalvo = super.salvar(getColaboradorParaSalvar(dto));
+
+        salvarEndereco(dto, colaboradorSalvo);
+        salvarCargo(dto, colaboradorSalvo);
+
+        return colaboradorSalvo;
+    }
+
+    private ColaboradorDTO getColaboradorParaSalvar(ColaboradorDTO dto) {
+        ColaboradorDTO copia = new ColaboradorDTO();
+        BeanUtils.copyProperties(dto, copia);
+        copia.setColaboradorEndereco(null);
+        copia.setCargoAtivo(null);
+        copia.setListaColaboradorCargo(new ArrayList<>());
+        return copia;
+    }
+
+    private void salvarCargo(ColaboradorDTO dto, ColaboradorDTO colaboradorSalvo) {
+        if (!dto.getListaColaboradorCargo().isEmpty()) {
+            dto.getListaColaboradorCargo().forEach(colaboradorCargo -> {
+                colaboradorCargo.setColaborador(colaboradorSalvo);
+                colaboradorCargoService.salvar(colaboradorCargo);
+            });
+        }
+    }
+
+    private void salvarEndereco(ColaboradorDTO dto, ColaboradorDTO colaboradorSalvo) {
+        dto.getColaboradorEndereco().setColaborador(colaboradorSalvo);
+        colaboradorEnderecoService.salvar(dto.getColaboradorEndereco());
     }
 
     public Set<ColaboradorDTO> listarColaboradoresAtivos() {

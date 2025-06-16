@@ -9,6 +9,8 @@ import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.dto.Colaborad
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -26,4 +28,9 @@ public class ColaboradorCargoDTO extends EntidadePadraoDTO {
     private TipoContratoDTO tipoContrato;
     private CargaHorariaDTO cargaHoraria;
     private DepartamentoDTO departamento;
+    private BigDecimal salario;
+    private Integer quantidadeDiasExperiencia;
+    private LocalDate dataExperiencia;
+    private Integer quantidadeDiasProrrogacao;
+    private LocalDate dataProrrogacao;
 }

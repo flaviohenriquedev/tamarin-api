@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -68,6 +69,10 @@ public class AdmissaoService extends DefaultServiceImpl<Admissao, AdmissaoDTO> {
 
     private static ColaboradorCargoDTO getColaboradorCargoDTO(AdmissaoDTO admissaoDTO, ColaboradorDTO colaboradorDTOSalvo) {
         ColaboradorCargoDTO colaboradorCargoDTO = new ColaboradorCargoDTO();
+        if (Objects.nonNull(admissaoDTO.getColaborador())
+            && Objects.nonNull(admissaoDTO.getColaborador().getCargoAtivo())) {
+            colaboradorCargoDTO.setId(admissaoDTO.getColaborador().getCargoAtivo().getId());
+        }
         colaboradorCargoDTO.setColaborador(colaboradorDTOSalvo);
         colaboradorCargoDTO.setCargo(admissaoDTO.getCargo());
         colaboradorCargoDTO.setTipoContrato(admissaoDTO.getTipoContrato());
@@ -79,6 +84,9 @@ public class AdmissaoService extends DefaultServiceImpl<Admissao, AdmissaoDTO> {
 
     private static ColaboradorDTO getColaboradorDTO(AdmissaoDTO admissaoDTO) {
         ColaboradorDTO colaboradorDTO = new ColaboradorDTO();
+        if (Objects.nonNull(admissaoDTO.getColaborador())) {
+            colaboradorDTO.setId(admissaoDTO.getColaborador().getId());
+        }
         colaboradorDTO.setNomeCompleto(admissaoDTO.getNomeCompleto());
         colaboradorDTO.setCpf(admissaoDTO.getCpf());
         colaboradorDTO.setRg(admissaoDTO.getRg());
@@ -89,8 +97,13 @@ public class AdmissaoService extends DefaultServiceImpl<Admissao, AdmissaoDTO> {
         return colaboradorDTO;
     }
 
-    private static ColaboradorEnderecoDTO getColaboradorEnderecoDTO(AdmissaoDTO admissaoDTO, ColaboradorDTO colaboradorDTO) {
+    private ColaboradorEnderecoDTO getColaboradorEnderecoDTO(AdmissaoDTO admissaoDTO, ColaboradorDTO colaboradorDTO) {
         ColaboradorEnderecoDTO colaboradorEnderecoDTO = new ColaboradorEnderecoDTO();
+        if (Objects.nonNull(admissaoDTO.getColaborador())
+            && Objects.nonNull(admissaoDTO.getColaborador().getColaboradorEndereco())
+            && Objects.nonNull(admissaoDTO.getColaborador().getColaboradorEndereco().getId())) {
+            colaboradorEnderecoDTO = colaboradorEnderecoService.buscarPorId(admissaoDTO.getColaborador().getColaboradorEndereco().getId());
+        }
         colaboradorEnderecoDTO.setColaborador(colaboradorDTO);
         colaboradorEnderecoDTO.setRua(admissaoDTO.getRua());
         colaboradorEnderecoDTO.setNumero(admissaoDTO.getNumero());

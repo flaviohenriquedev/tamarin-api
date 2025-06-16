@@ -6,6 +6,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
 import lombok.*;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -17,4 +18,8 @@ public abstract class EntidadePadraoDTO {
 
     @Enumerated(EnumType.STRING)
     private StatusENUM status;
+
+    public boolean isNew() {
+        return Objects.isNull(id);
+    }
 }

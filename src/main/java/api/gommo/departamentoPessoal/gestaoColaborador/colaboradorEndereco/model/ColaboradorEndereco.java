@@ -19,7 +19,6 @@ import lombok.Setter;
 @Table(name = "colaborador_endereco")
 public class ColaboradorEndereco extends EntidadePadrao {
 
-    @JsonSerialize(using = IDSerializer.class)
     @OneToOne
     @JoinColumn(name = "id_colaborador")
     private Colaborador colaborador;

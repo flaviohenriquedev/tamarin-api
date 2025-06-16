@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -25,6 +27,10 @@ public class ColaboradorCargo extends EntidadePadrao {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_colaborador")
     private Colaborador colaborador;
+
+    @Column(name = "data_admissao")
+    @Temporal(TemporalType.DATE)
+    private Date dataAdmissao;
 
     @Column(name = "vigencia_inicial")
     @Temporal(TemporalType.DATE)
@@ -49,4 +55,18 @@ public class ColaboradorCargo extends EntidadePadrao {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_departamento")
     private Departamento departamento;
+
+    private BigDecimal salario;
+
+    @Column(name = "quantidade_dias_experiencia")
+    private Integer quantidadeDiasExperiencia;
+
+    @Column(name = "data_experiencia")
+    private LocalDate dataExperiencia;
+
+    @Column(name = "quantidade_dias_prorrogacao")
+    private Integer quantidadeDiasProrrogacao;
+
+    @Column(name = "data_prorrogacao")
+    private LocalDate dataProrrogacao;
 }

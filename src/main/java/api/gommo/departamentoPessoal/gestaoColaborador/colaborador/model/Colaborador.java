@@ -43,10 +43,10 @@ public class Colaborador extends EntidadeTenant {
     @Column(name = "status_colaborador")
     private StatusColaboradorENUM statusColaborador;
 
-    @OneToOne(mappedBy = "colaborador", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "colaborador", cascade = CascadeType.ALL)
     private ColaboradorEndereco colaboradorEndereco;
 
-    @OneToMany(mappedBy = "colaborador", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "colaborador")
     private List<ColaboradorCargo> listaColaboradorCargo;
 
 }

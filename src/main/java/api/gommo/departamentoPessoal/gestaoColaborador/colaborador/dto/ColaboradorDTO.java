@@ -25,6 +25,7 @@ public class ColaboradorDTO extends EntidadeTenantDTO {
     private String nascionalidade;
     private String nomeMae;
     private StatusColaboradorENUM statusColaborador;
+
     private ColaboradorEnderecoDTO colaboradorEndereco;
     private ColaboradorCargoDTO cargoAtivo;
     private List<ColaboradorCargoDTO> listaColaboradorCargo;

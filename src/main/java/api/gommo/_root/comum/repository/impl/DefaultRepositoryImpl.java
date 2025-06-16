@@ -2,9 +2,13 @@ package api.gommo._root.comum.repository.impl;
 
 import api.gommo._root._infra.multitenant.TenantContext;
 import api.gommo._root.comum.enums.SistemaENUM;
+import api.gommo._root.comum.enums.StatusENUM;
+import api.gommo._root.comum.model.EntidadeAuditavel;
+import api.gommo._root.comum.model.EntidadePadrao;
 import api.gommo._root.comum.model.EntidadeSistema;
 import api.gommo._root.comum.model.EntidadeTenant;
 import api.gommo._root.comum.repository.DefaultRepository;
+import api.gommo._root.comum.useCase.UsuarioLogado;
 import api.gommo.gerenciamentoSistema.gestaoEmpresa.empresa.model.Empresa;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -12,7 +16,9 @@ import org.hibernate.Session;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class DefaultRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> implements DefaultRepository<T, ID> {
@@ -48,6 +54,7 @@ public class DefaultRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> imp
     @Transactional
     public <S extends T> S save(S entity) {
         setTenantIfApplicable(entity);
+        inicializarEntidade(entity);
         return super.save(entity);
     }
 
@@ -80,6 +87,19 @@ public class DefaultRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> imp
             Empresa empresa = new Empresa();
             empresa.setId(getEmpresaId());
             entidadeTenant.setEmpresaTenant(empresa);
+        }
+    }
+
+    private void inicializarEntidade(Object entity) {
+        if (entity instanceof EntidadePadrao entidadePadrao && Objects.isNull(entidadePadrao.getId())) {
+            entidadePadrao.setStatus(StatusENUM.ATIVO);
+            if (entity instanceof EntidadeAuditavel entidadeAuditavel) {
+                entidadeAuditavel.setDataCriacao(new Date());
+                entidadeAuditavel.setUsuarioCriacao(UsuarioLogado.getUsuario().getNome());
+            }
+        } else if (entity instanceof EntidadeAuditavel entidadeAuditavel) {
+            entidadeAuditavel.setDataAlteracao(new Date());
+            entidadeAuditavel.setUsuarioAlteracao(UsuarioLogado.getUsuario().getNome());
         }
     }
 }
