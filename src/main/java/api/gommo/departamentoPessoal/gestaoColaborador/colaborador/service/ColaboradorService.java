@@ -8,16 +8,11 @@ import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.dto.Colaborad
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.enums.StatusColaboradorENUM;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.model.Colaborador;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.repository.ColaboradorRepository;
-import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.dto.ColaboradorCargoDTO;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.service.ColaboradorCargoService;
-import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.dto.ColaboradorEnderecoDTO;
-import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.model.ColaboradorEndereco;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.service.ColaboradorEnderecoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.authorization.method.AuthorizeReturnObject;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -59,6 +54,19 @@ public class ColaboradorService extends DefaultServiceImpl<Colaborador, Colabora
         salvarCargo(dto, colaboradorSalvo);
 
         return colaboradorSalvo;
+    }
+
+    @Override
+    public List<ColaboradorDTO> listar() {
+        List<ColaboradorDTO> lista = super.listar();
+        getEndereco(lista);
+        return lista;
+    }
+
+    private void getEndereco(List<ColaboradorDTO> lista) {
+        if (!lista.isEmpty()) {
+            lista.forEach(colaborador -> colaborador.setColaboradorEndereco(colaboradorEnderecoService.getByIdColaborador(colaborador.getId())));
+        }
     }
 
     private ColaboradorDTO getColaboradorParaSalvar(ColaboradorDTO dto) {

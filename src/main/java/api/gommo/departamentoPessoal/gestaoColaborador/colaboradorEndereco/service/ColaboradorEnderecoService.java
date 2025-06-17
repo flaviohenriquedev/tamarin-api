@@ -32,4 +32,8 @@ public class ColaboradorEnderecoService extends DefaultServiceImpl<ColaboradorEn
     protected DtoMapper<ColaboradorEndereco, ColaboradorEnderecoDTO> getMapper() {
         return new DtoMapperImpl<>(modelMapper, ColaboradorEndereco.class, ColaboradorEnderecoDTO.class);
     }
+
+    public ColaboradorEnderecoDTO getByIdColaborador(UUID id) {
+        return getMapper().toDto(colaboradorEnderecoRepository.getByColaboradorId(id));
+    }
 }

@@ -9,4 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface ColaboradorEnderecoRepository extends DefaultRepository<ColaboradorEndereco, UUID> {
+    ColaboradorEndereco getByColaboradorId(UUID colaboradorId);
 }

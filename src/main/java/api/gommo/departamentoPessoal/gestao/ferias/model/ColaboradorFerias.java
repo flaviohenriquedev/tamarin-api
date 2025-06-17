@@ -1,7 +1,9 @@
 package api.gommo.departamentoPessoal.gestao.ferias.model;
 
 import api.gommo._root.comum.model.EntidadeTenant;
+import api.gommo._root.comum.serializer.impl.IDSerializer;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.model.Colaborador;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
