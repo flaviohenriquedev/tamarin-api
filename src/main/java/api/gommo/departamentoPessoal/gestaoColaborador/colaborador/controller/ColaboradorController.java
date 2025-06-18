@@ -6,6 +6,7 @@ import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.dto.Colaborad
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.service.ColaboradorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +27,15 @@ public class ColaboradorController extends DefaultController<ColaboradorDTO> {
     @GetMapping("/listar-colaboradores-ativos")
     public Set<ColaboradorDTO> listarColaboradoresAtivos() {
         return colaboradorService.listarColaboradoresAtivos();
+    }
+
+    @GetMapping("/buscar-por-matricula/{matricula}")
+    public ColaboradorDTO findByMatricula(@PathVariable Integer matricula) {
+        return colaboradorService.findByMatricula(matricula);
+    }
+
+    @GetMapping("/buscar-por-cpf/{cpf}")
+    public ColaboradorDTO findByCpf(@PathVariable String cpf) {
+        return colaboradorService.findByCpf(cpf);
     }
 }

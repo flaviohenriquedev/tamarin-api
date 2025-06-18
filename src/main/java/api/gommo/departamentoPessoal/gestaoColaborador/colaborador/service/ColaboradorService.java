@@ -100,4 +100,12 @@ public class ColaboradorService extends DefaultServiceImpl<Colaborador, Colabora
     public Integer getProximaMatricula() {
         return colaboradorRepository.getProximaMatricula();
     }
+
+    public ColaboradorDTO findByMatricula(Integer matricula) {
+        return getMapper().toDto(colaboradorRepository.findByMatricula(matricula));
+    }
+
+    public ColaboradorDTO findByCpf(String cpf) {
+        return getMapper().toDto(colaboradorRepository.findByCpf(cpf));
+    }
 }

@@ -17,4 +17,8 @@ public interface ColaboradorRepository extends DefaultRepository<Colaborador, UU
             SELECT COALESCE(MAX(matricula), 0) + 1 FROM Colaborador
         """)
     Integer getProximaMatricula();
+
+    Colaborador findByMatricula(Integer matricula);
+
+    Colaborador findByCpf(String cpf);
 }
