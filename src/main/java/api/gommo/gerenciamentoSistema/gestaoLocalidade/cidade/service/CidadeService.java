@@ -9,9 +9,10 @@ import api.gommo.gerenciamentoSistema.gestaoLocalidade.cidade.model.Cidade;
 import api.gommo.gerenciamentoSistema.gestaoLocalidade.cidade.repository.CidadeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.text.Normalizer;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -31,5 +32,15 @@ public class CidadeService extends DefaultServiceImpl<Cidade, CidadeDTO> {
     @Override
     protected DtoMapper<Cidade, CidadeDTO> getMapper() {
         return new DtoMapperImpl<>(modelMapper, Cidade.class, CidadeDTO.class);
+    }
+
+    public List<CidadeDTO> buscarPorNomeIniciadoCom(String nome) {
+        String nomeTratado = Normalizer
+                .normalize(nome.trim(), Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "") // tira acento
+                .replaceAll("[^a-zA-Z0-9\\s]", "") // tira símbolos
+                .toLowerCase();
+
+        return getMapper().toDtoList(cidadeRepository.findByNomeStartingWithIgnoreCase(nomeTratado));
     }
 }
