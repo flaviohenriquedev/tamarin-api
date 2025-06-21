@@ -4,6 +4,9 @@ import api.gommo._root.comum.dto.EntidadeTenantDTO;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.enums.StatusColaboradorENUM;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.dto.ColaboradorCargoDTO;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.dto.ColaboradorEnderecoDTO;
+import api.gommo.gerenciamentoSistema.gestaoLocalidade.cidade.dto.CidadeDTO;
+import api.gommo.gerenciamentoSistema.gestaoLocalidade.cidade.model.Cidade;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -20,10 +23,13 @@ public class ColaboradorDTO extends EntidadeTenantDTO {
     private Integer matricula;
     private String nomeCompleto;
     private String cpf;
-    private String rg;
     private LocalDate dataNascimento;
+    private CidadeDTO cidadeNascimento;
+    private String rg;
+    private LocalDate dataExpedicaoRg;
     private String nascionalidade;
     private String nomeMae;
+    private String nomePai;
     private StatusColaboradorENUM statusColaborador;
 
     private ColaboradorEnderecoDTO colaboradorEndereco;

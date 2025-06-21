@@ -107,8 +107,6 @@ public class AdmissaoService extends DefaultServiceImpl<Admissao, AdmissaoDTO> {
         colaboradorEnderecoDTO.setColaborador(colaboradorDTO);
         colaboradorEnderecoDTO.setRua(admissaoDTO.getRua());
         colaboradorEnderecoDTO.setNumero(admissaoDTO.getNumero());
-        colaboradorEnderecoDTO.setLote(admissaoDTO.getLote());
-        colaboradorEnderecoDTO.setQuadra(admissaoDTO.getQuadra());
         colaboradorEnderecoDTO.setBairro(admissaoDTO.getBairro());
         colaboradorEnderecoDTO.setCidade(admissaoDTO.getCidade());
         return colaboradorEnderecoDTO;

@@ -43,4 +43,8 @@ public class CidadeService extends DefaultServiceImpl<Cidade, CidadeDTO> {
 
         return getMapper().toDtoList(cidadeRepository.findByNomeStartingWithIgnoreCase(nomeTratado));
     }
+
+    public CidadeDTO buscarPorCodigoIBGE(Integer codigoIbge) {
+        return getMapper().toDto(cidadeRepository.findByibge(codigoIbge));
+    }
 }

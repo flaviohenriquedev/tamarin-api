@@ -12,5 +12,5 @@ public enum FuncionalidadeENUM {
     CONSULTAR_TESTE("CONSULTAR_TESTE");
 
     @NonNull
-    private String key;
+    private String value;
 }

@@ -47,7 +47,7 @@ public enum ModuloENUM {
     ;
 
     @NonNull
-    private final String key;
+    private final String value;
 
     @NonNull
     private final SistemaENUM sistema;

@@ -13,5 +13,5 @@ public enum StatusENUM {
     DELETADO("DELETADO");
 
     @NonNull
-    private String key;
+    private String value;
 }

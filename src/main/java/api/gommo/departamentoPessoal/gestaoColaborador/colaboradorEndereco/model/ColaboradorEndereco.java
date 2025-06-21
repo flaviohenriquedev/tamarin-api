@@ -24,8 +24,7 @@ public class ColaboradorEndereco extends EntidadePadrao {
     private Colaborador colaborador;
 
     private String rua;
-    private String quadra;
-    private String lote;
+    private String complemento;
     private String numero;
     private String bairro;
 

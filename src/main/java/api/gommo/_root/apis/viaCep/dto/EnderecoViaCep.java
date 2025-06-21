@@ -1,5 +1,6 @@
 package api.gommo._root.apis.viaCep.dto;
 
+import api.gommo.gerenciamentoSistema.gestaoLocalidade.cidade.dto.CidadeDTO;
 import lombok.*;
 
 @Getter
@@ -14,4 +15,6 @@ public class EnderecoViaCep {
     private String bairro;
     private String localidade;
     private String uf;
+    private String ibge;
+    private CidadeDTO cidade;
 }

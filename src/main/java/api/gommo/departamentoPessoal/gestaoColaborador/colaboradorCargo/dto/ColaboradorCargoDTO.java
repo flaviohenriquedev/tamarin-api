@@ -6,7 +6,10 @@ import api.gommo.departamentoPessoal.administracao.cargo.dto.CargoDTO;
 import api.gommo.departamentoPessoal.administracao.departamento.dto.DepartamentoDTO;
 import api.gommo.departamentoPessoal.administracao.tipoContrato.dto.TipoContratoDTO;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.dto.ColaboradorDTO;
+import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.enums.FormaPagamentoENUM;
+import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.enums.TipoSalarioENUM;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -33,4 +36,7 @@ public class ColaboradorCargoDTO extends EntidadePadraoDTO {
     private LocalDate dataExperiencia;
     private Integer quantidadeDiasProrrogacao;
     private LocalDate dataProrrogacao;
+    private Boolean possuiSindicato;
+    private FormaPagamentoENUM formaPagamento;
+    private TipoSalarioENUM tipoSalario;
 }

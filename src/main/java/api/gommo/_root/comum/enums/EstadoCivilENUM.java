@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 
-@Getter
 @AllArgsConstructor
-public enum EtniaENUM {
-    BRANCA("Branca"),
-    PRETA("Preta"),
-    PARDA("Parda"),
-    AMARELA("Amarela"),
-    INDIGENA("Indígena");
+@Getter
+public enum EstadoCivilENUM {
+    SOLTEIRO("SOLTEIRO"),
+    CASADO("CASADO"),
+    DIVORCIADO("DIVORCIADO"),
+    VIUVO("VIUVO"),
+    SEPARADO("SEPARADO");
 
     @NonNull
     private final String value;

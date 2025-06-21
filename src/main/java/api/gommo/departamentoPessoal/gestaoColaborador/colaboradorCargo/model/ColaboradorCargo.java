@@ -6,6 +6,8 @@ import api.gommo.departamentoPessoal.administracao.cargo.model.Cargo;
 import api.gommo.departamentoPessoal.administracao.departamento.model.Departamento;
 import api.gommo.departamentoPessoal.administracao.tipoContrato.model.TipoContrato;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.model.Colaborador;
+import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.enums.FormaPagamentoENUM;
+import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.enums.TipoSalarioENUM;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -69,4 +71,13 @@ public class ColaboradorCargo extends EntidadePadrao {
 
     @Column(name = "data_prorrogacao")
     private LocalDate dataProrrogacao;
+
+    @Column(name = "possui_sindicato")
+    private Boolean possuiSindicato;
+
+    @Column(name = "forma_pagamento")
+    private FormaPagamentoENUM formaPagamento;
+
+    @Column(name = "tipo_salario")
+    private TipoSalarioENUM tipoSalario;
 }

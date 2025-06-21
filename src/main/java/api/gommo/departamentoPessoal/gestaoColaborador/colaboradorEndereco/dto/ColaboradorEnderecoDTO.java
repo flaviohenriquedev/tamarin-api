@@ -14,9 +14,9 @@ import lombok.*;
 public class ColaboradorEnderecoDTO extends EntidadePadraoDTO {
     @JsonIgnore
     private ColaboradorDTO colaborador;
+
     private String rua;
-    private String quadra;
-    private String lote;
+    private String complemento;
     private String numero;
     private String bairro;
     private CidadeDTO cidade;

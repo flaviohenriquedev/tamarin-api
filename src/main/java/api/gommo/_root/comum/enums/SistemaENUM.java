@@ -12,7 +12,7 @@ public enum SistemaENUM {
     RECURSOS_HUMANOS("RECURSOS_HUMANOS", "RH");
 
     @NonNull
-    private String key;
+    private String value;
 
     @NonNull
     private String sigla;
