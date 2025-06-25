@@ -60,12 +60,23 @@ public class ColaboradorService extends DefaultServiceImpl<Colaborador, Colabora
     public List<ColaboradorDTO> listar() {
         List<ColaboradorDTO> lista = super.listar();
         getEndereco(lista);
+        getCargos(lista);
         return lista;
+    }
+
+    public List<ColaboradorDTO> findByStatusColaborador(StatusColaboradorENUM statusColaborador) {
+        return getMapper().toDtoList(colaboradorRepository.findByStatusColaborador(statusColaborador));
     }
 
     private void getEndereco(List<ColaboradorDTO> lista) {
         if (!lista.isEmpty()) {
             lista.forEach(colaborador -> colaborador.setColaboradorEndereco(colaboradorEnderecoService.getByIdColaborador(colaborador.getId())));
+        }
+    }
+
+    private void getCargos(List<ColaboradorDTO> lista) {
+        if (!lista.isEmpty()) {
+            lista.forEach(colaborador -> colaborador.setListaColaboradorCargo(colaboradorCargoService.getCargosPorColaboradorId(colaborador.getId())));
         }
     }
 
@@ -79,22 +90,33 @@ public class ColaboradorService extends DefaultServiceImpl<Colaborador, Colabora
     }
 
     private void salvarCargo(ColaboradorDTO dto, ColaboradorDTO colaboradorSalvo) {
-        if (!dto.getListaColaboradorCargo().isEmpty()) {
+        if (Objects.nonNull(dto.getListaColaboradorCargo()) && !dto.getListaColaboradorCargo().isEmpty()) {
             dto.getListaColaboradorCargo().forEach(colaboradorCargo -> {
-                colaboradorCargo.setColaborador(colaboradorSalvo);
-                colaboradorCargoService.salvar(colaboradorCargo);
+                if(Objects.nonNull(colaboradorCargo.getCargo()) && Objects.nonNull(colaboradorCargo.getCargo().getId())) {
+                    colaboradorCargo.setColaborador(colaboradorSalvo);
+                    colaboradorCargoService.salvar(colaboradorCargo);
+                }
             });
         }
     }
 
     private void salvarEndereco(ColaboradorDTO dto, ColaboradorDTO colaboradorSalvo) {
-        dto.getColaboradorEndereco().setColaborador(colaboradorSalvo);
-        colaboradorEnderecoService.salvar(dto.getColaboradorEndereco());
+        if (Objects.nonNull(dto.getColaboradorEndereco())) {
+            dto.getColaboradorEndereco().setColaborador(colaboradorSalvo);
+            colaboradorEnderecoService.salvar(dto.getColaboradorEndereco());
+        }
     }
 
     public Set<ColaboradorDTO> listarColaboradoresAtivos() {
-        List<Colaborador> result = colaboradorRepository.findByStatusColaborador(StatusColaboradorENUM.ATIVO);
-        return new HashSet<>(getMapper().toDtoList(result));
+        List<ColaboradorDTO> lista = findByStatusColaborador(StatusColaboradorENUM.ATIVO);
+        getCargos(lista);
+        return new HashSet<>(lista);
+    }
+
+    public Set<ColaboradorDTO> listarColaboradoresDesligados() {
+        List<ColaboradorDTO> lista = findByStatusColaborador(StatusColaboradorENUM.DESLIGADO);
+        getCargos(lista);
+        return new HashSet<>(lista);
     }
 
     public Integer getProximaMatricula() {

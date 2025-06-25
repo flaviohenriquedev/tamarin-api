@@ -53,4 +53,7 @@ public class Colaborador extends EntidadeTenant {
     @Enumerated(EnumType.STRING)
     @Column(name = "status_colaborador")
     private StatusColaboradorENUM statusColaborador;
+
+    @Column(name = "base_64", columnDefinition = "TEXT")
+    private String base64;
 }

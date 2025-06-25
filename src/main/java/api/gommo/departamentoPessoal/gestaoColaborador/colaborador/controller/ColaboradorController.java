@@ -29,6 +29,11 @@ public class ColaboradorController extends DefaultController<ColaboradorDTO> {
         return colaboradorService.listarColaboradoresAtivos();
     }
 
+    @GetMapping("/listar-colaboradores-desligados")
+    public Set<ColaboradorDTO> listarColaboradoresDesligados() {
+        return colaboradorService.listarColaboradoresDesligados();
+    }
+
     @GetMapping("/buscar-por-matricula/{matricula}")
     public ColaboradorDTO findByMatricula(@PathVariable Integer matricula) {
         return colaboradorService.findByMatricula(matricula);

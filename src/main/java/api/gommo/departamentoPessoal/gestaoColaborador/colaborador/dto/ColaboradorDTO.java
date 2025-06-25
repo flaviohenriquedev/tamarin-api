@@ -35,6 +35,7 @@ public class ColaboradorDTO extends EntidadeTenantDTO {
     private ColaboradorEnderecoDTO colaboradorEndereco;
     private ColaboradorCargoDTO cargoAtivo;
     private List<ColaboradorCargoDTO> listaColaboradorCargo;
+    private String base64;
 
     public ColaboradorCargoDTO getCargoAtivo() {
         if (Objects.nonNull(listaColaboradorCargo) && !listaColaboradorCargo.isEmpty()) {
