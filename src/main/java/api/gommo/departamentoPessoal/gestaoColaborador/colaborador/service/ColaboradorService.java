@@ -68,6 +68,10 @@ public class ColaboradorService extends DefaultServiceImpl<Colaborador, Colabora
         return getMapper().toDtoList(colaboradorRepository.findByStatusColaborador(statusColaborador));
     }
 
+    public List<ColaboradorDTO> findByStatusColaboradorIsNot(StatusColaboradorENUM statusColaborador) {
+        return getMapper().toDtoList(colaboradorRepository.findByStatusColaboradorIsNot(statusColaborador));
+    }
+
     private void getEndereco(List<ColaboradorDTO> lista) {
         if (!lista.isEmpty()) {
             lista.forEach(colaborador -> colaborador.setColaboradorEndereco(colaboradorEnderecoService.getByIdColaborador(colaborador.getId())));
@@ -108,7 +112,7 @@ public class ColaboradorService extends DefaultServiceImpl<Colaborador, Colabora
     }
 
     public Set<ColaboradorDTO> listarColaboradoresAtivos() {
-        List<ColaboradorDTO> lista = findByStatusColaborador(StatusColaboradorENUM.ATIVO);
+        List<ColaboradorDTO> lista = findByStatusColaboradorIsNot(StatusColaboradorENUM.DESLIGADO);
         getCargos(lista);
         return new HashSet<>(lista);
     }

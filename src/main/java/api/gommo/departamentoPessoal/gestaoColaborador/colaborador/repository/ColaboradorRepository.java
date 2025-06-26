@@ -13,6 +13,8 @@ import java.util.UUID;
 public interface ColaboradorRepository extends DefaultRepository<Colaborador, UUID> {
     List<Colaborador> findByStatusColaborador(StatusColaboradorENUM status);
 
+    List<Colaborador> findByStatusColaboradorIsNot(StatusColaboradorENUM statusColaborador);
+
     @Query("""
             SELECT COALESCE(MAX(matricula), 0) + 1 FROM Colaborador
         """)
