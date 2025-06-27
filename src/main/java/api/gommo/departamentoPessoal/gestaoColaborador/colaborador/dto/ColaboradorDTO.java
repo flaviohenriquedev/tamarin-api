@@ -1,6 +1,9 @@
 package api.gommo.departamentoPessoal.gestaoColaborador.colaborador.dto;
 
 import api.gommo._root.comum.dto.EntidadeTenantDTO;
+import api.gommo._root.comum.enums.EstadoCivilENUM;
+import api.gommo._root.comum.enums.EtniaENUM;
+import api.gommo._root.comum.enums.GeneroENUM;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.enums.StatusColaboradorENUM;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorCargo.dto.ColaboradorCargoDTO;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaboradorEndereco.dto.ColaboradorEnderecoDTO;
@@ -26,10 +29,16 @@ public class ColaboradorDTO extends EntidadeTenantDTO {
     private LocalDate dataNascimento;
     private CidadeDTO cidadeNascimento;
     private String rg;
+    private String telefone;
+    private String email;
     private LocalDate dataExpedicaoRg;
     private String nascionalidade;
     private String nomeMae;
     private String nomePai;
+    public EtniaENUM etnia;
+    public EstadoCivilENUM estadoCivil;
+    public GeneroENUM genero;
+
     private StatusColaboradorENUM statusColaborador;
 
     private ColaboradorEnderecoDTO colaboradorEndereco;

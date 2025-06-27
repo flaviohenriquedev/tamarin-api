@@ -23,6 +23,7 @@ public class ColaboradorEndereco extends EntidadePadrao {
     @JoinColumn(name = "id_colaborador")
     private Colaborador colaborador;
 
+    private String cep;
     private String rua;
     private String complemento;
     private String numero;

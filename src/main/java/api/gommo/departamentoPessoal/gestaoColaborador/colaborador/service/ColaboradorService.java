@@ -114,6 +114,7 @@ public class ColaboradorService extends DefaultServiceImpl<Colaborador, Colabora
     public Set<ColaboradorDTO> listarColaboradoresAtivos() {
         List<ColaboradorDTO> lista = findByStatusColaboradorIsNot(StatusColaboradorENUM.DESLIGADO);
         getCargos(lista);
+        getEndereco(lista);
         return new HashSet<>(lista);
     }
 

@@ -1,5 +1,8 @@
 package api.gommo.departamentoPessoal.gestaoColaborador.colaborador.model;
 
+import api.gommo._root.comum.enums.EstadoCivilENUM;
+import api.gommo._root.comum.enums.EtniaENUM;
+import api.gommo._root.comum.enums.GeneroENUM;
 import api.gommo._root.comum.model.EntidadeTenant;
 import api.gommo.departamentoPessoal.gestaoColaborador.colaborador.enums.StatusColaboradorENUM;
 import api.gommo.gerenciamentoSistema.gestaoLocalidade.cidade.model.Cidade;
@@ -37,6 +40,7 @@ public class Colaborador extends EntidadeTenant {
     private Cidade cidadeNascimento;
 
     private String rg;
+    private String telefone;
 
     @Column(name = "data_expedicao_rg")
     @Temporal(TemporalType.DATE)
@@ -49,6 +53,12 @@ public class Colaborador extends EntidadeTenant {
 
     @Column(name = "nome_pai")
     private String nomePai;
+
+    public EtniaENUM etnia;
+
+    @Column(name = "estado_civil")
+    public EstadoCivilENUM estadoCivil;
+    public GeneroENUM genero;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_colaborador")
