@@ -17,9 +17,13 @@ import lombok.Setter;
 public class Cidade extends EntidadePadrao {
     private String nome;
     private Integer ibge;
-    private String latLon;
-    private Integer codTom;
 
+    @Column(name = "lat_lon")
+    private String latLon;
+
+    @Column(name = "cod_tom")
+    private Integer codTom;
+    
     @JoinColumn(name = "id_estado")
     @ManyToOne(fetch = FetchType.LAZY)
     private Estado estado;
