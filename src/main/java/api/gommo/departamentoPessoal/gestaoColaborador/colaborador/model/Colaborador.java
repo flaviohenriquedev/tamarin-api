@@ -54,10 +54,14 @@ public class Colaborador extends EntidadeTenant {
     @Column(name = "nome_pai")
     private String nomePai;
 
+    @Enumerated(EnumType.STRING)
     public EtniaENUM etnia;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "estado_civil")
     public EstadoCivilENUM estadoCivil;
+
+    @Enumerated(EnumType.STRING)
     public GeneroENUM genero;
 
     @Enumerated(EnumType.STRING)
